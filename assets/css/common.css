@@ -90,17 +90,16 @@ footer {
     z-index: 99;
 }
 
-button {
+button, .ButtonSquare {
     transition-property: scale;
     transition-duration: 200ms;
 }
-button:hover {
+button:hover, .ButtonSquare:hover {
     background-blend-mode: multiply;
     scale: 1.1;
 }
 
-button.ButtonSquare {
-    background-color: #fff;
+.ButtonSquare {
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
     box-shadow: 0 0.5svh 0.5svh;

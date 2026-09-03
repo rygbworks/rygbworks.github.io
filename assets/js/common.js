@@ -7,19 +7,33 @@ const Body = document.querySelector("body");
 const Header = document.querySelector("header");
 const Footer = document.querySelector("footer");
 
+// キーボードのEnter・スペースキーでもクリックと同じ挙動にする(button要素ではなくなるため)
+function AllowKeyboardClick(Element) {
+    Element.setAttribute("role", "button");
+    Element.setAttribute("tabindex", "0");
+    Element.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            Element.click();
+        }
+    });
+}
+
 // オプションボタン・ヘルプボタンのHTML要素を生成、id属性・class属性を付ける、HTMLファイルに追加
-const ButtonOption = document.createElement("button");
+const ButtonOption = document.createElement("div");
 const IdButtonOption = document.createAttribute("id");
 IdButtonOption.value = "ButtonOption";
 ButtonOption.setAttributeNode(IdButtonOption);
 ButtonOption.classList.add("ButtonSquare");
+AllowKeyboardClick(ButtonOption);
 Header.append(ButtonOption);
 
-const ButtonHelp = document.createElement("button");
+const ButtonHelp = document.createElement("div");
 const IdButtonHelp = document.createAttribute("id");
 IdButtonHelp.value = "ButtonHelp";
 ButtonHelp.setAttributeNode(IdButtonHelp);
 ButtonHelp.classList.add("ButtonSquare");
+AllowKeyboardClick(ButtonHelp);
 Footer.append(ButtonHelp);
 
 // HTML要素を取得し、ゲーム画面の幅や高さからアスペクト比を計算する
