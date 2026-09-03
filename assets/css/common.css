@@ -22,17 +22,6 @@
     --SizeBrick: calc(10.5svh + 30px) 100%;
 }
 
-/* ダークモード時もライトモードと同じ配色のまま変えない */
-/* (このメディアクエリを使うこと自体で、Android WebViewの強制ダーク変換の対象から外れる) */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #ccc;
-    }
-    header, footer {
-        background-color: #666;
-    }
-}
-
 #test {
     position: absolute;
     top: 10svh; left: 50px;
