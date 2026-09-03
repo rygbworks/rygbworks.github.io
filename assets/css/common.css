@@ -8,6 +8,11 @@
     font-display: swap;
 }
 
+:root {
+    --WidthButtonSquare: 7svh;
+    --MaxWidthContentsFooter: calc(100svw - var(--WidthButtonSquare) * 2 - 10px * 2);
+}
+
 * {
     background-color: transparent;
     padding: 0; margin: 0; border: 0 none transparent;
@@ -45,9 +50,10 @@ header {
     top: 0;
 }
 footer {
+    --AspectRatioTextFooter: calc(1800 / 200);
     bottom: 0;
     background-image: url(/assets/image/decoration/text-footer.webp);
-    background-size: auto 3svh;
+    background-size: auto min(3svh, calc(var(--MaxWidthContentsFooter) / var(--AspectRatioTextFooter)));
     background-position: center;
 }
 
@@ -80,7 +86,7 @@ button:hover {
 }
 
 button.ButtonSquare {
-    width: 7svh; aspect-ratio: 1 / 1;
+    width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
     box-shadow: 0 0.5svh 0.5svh;
     background-repeat: no-repeat;
@@ -90,7 +96,7 @@ button.ButtonSquare {
 
 #ButtonOption {
     position: absolute;
-    right: 10px; top: calc(50% - 3.5svh);
+    right: 10px; top: calc(50% - var(--WidthButtonSquare) / 2);
     background-image: url(/assets/image/button/button-option.webp), url(/assets/image/button/button-option-push.webp);
     z-index: 91;
 }
@@ -101,7 +107,7 @@ button.ButtonSquare {
 #ButtonHelp {
     display: none;
     position: absolute;
-    left: 10px; top: calc(50% - 3.5svh);
+    left: 10px; top: calc(50% - var(--WidthButtonSquare) / 2);
     background-image: url(/assets/image/button/button-help.webp), url(/assets/image/button/button-help-push.webp);
 }
 #ButtonHelp:active {

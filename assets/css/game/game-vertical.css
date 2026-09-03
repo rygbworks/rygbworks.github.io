@@ -3,6 +3,7 @@
 @charset "utf-8";
 
 :root {
+    --AspectRatioGuideVertical: calc(660 / 120);
     --SizeFontCountText: 10dvw;
     --WidthButton: 160px;
     --WidthChicken: 10dvh;
@@ -12,19 +13,19 @@
 
 footer.Tap.En.OnClickHelp:not(.OnClickOption) {
     background-image: url(/assets/image/decoration/guide-vertical-tap-en.webp);
-    background-size: auto 5svh;
+    background-size: auto min(5svh, calc(var(--MaxWidthContentsFooter) / var(--AspectRatioGuideVertical)));
 }
 footer.Tap.Ja.OnClickHelp:not(.OnClickOption) {
     background-image: url(/assets/image/decoration/guide-vertical-tap-ja.webp);
-    background-size: auto 5svh;
+    background-size: auto min(5svh, calc(var(--MaxWidthContentsFooter) / var(--AspectRatioGuideVertical)));
 }
 footer.Keyboard.En.OnClickHelp:not(.OnClickOption) {
     background-image: url(/assets/image/decoration/guide-vertical-keyboard-en.webp);
-    background-size: auto 5svh;
+    background-size: auto min(5svh, calc(var(--MaxWidthContentsFooter) / var(--AspectRatioGuideVertical)));
 }
 footer.Keyboard.Ja.OnClickHelp:not(.OnClickOption) {
     background-image: url(/assets/image/decoration/guide-vertical-keyboard-ja.webp);
-    background-size: auto 5svh;
+    background-size: auto min(5svh, calc(var(--MaxWidthContentsFooter) / var(--AspectRatioGuideVertical)));
 }
 
 #CountText {
