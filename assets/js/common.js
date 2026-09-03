@@ -7,6 +7,21 @@ const Body = document.querySelector("body");
 const Header = document.querySelector("header");
 const Footer = document.querySelector("footer");
 
+// オプションボタン・ヘルプボタンのHTML要素を生成、id属性・class属性を付ける、HTMLファイルに追加
+const ButtonOption = document.createElement("button");
+const IdButtonOption = document.createAttribute("id");
+IdButtonOption.value = "ButtonOption";
+ButtonOption.setAttributeNode(IdButtonOption);
+ButtonOption.classList.add("ButtonSquare");
+Header.append(ButtonOption);
+
+const ButtonHelp = document.createElement("button");
+const IdButtonHelp = document.createAttribute("id");
+IdButtonHelp.value = "ButtonHelp";
+ButtonHelp.setAttributeNode(IdButtonHelp);
+ButtonHelp.classList.add("ButtonSquare");
+Footer.append(ButtonHelp);
+
 // HTML要素を取得し、ゲーム画面の幅や高さからアスペクト比を計算する
 const Contents = document.querySelector("#Contents");
 const StyleContents = getComputedStyle(Contents);

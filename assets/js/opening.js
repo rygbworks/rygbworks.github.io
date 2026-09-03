@@ -10,10 +10,6 @@ const OptionsHeaderFooter = {
     easing: "ease",
 };
 
-// ボタンのHTML要素を取得
-const ButtonOption = document.querySelector("#ButtonOption");
-const ButtonHelp = document.querySelector("#ButtonHelp");
-
 // オプションボタンのアニメーション情報を定義　アニメーションする
 const KeyframesButton = {
     scale: [0, 1],
