@@ -22,6 +22,9 @@
 #ButtonHelp {
     display: block;
 }
+#ButtonHelp.OnClickOption {
+    display: none;
+}
 
 #ButtonRetry {
     position: absolute;

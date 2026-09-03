@@ -21,6 +21,7 @@ ButtonOption.addEventListener("click", () => {
     }
 
     Footer.classList.toggle("OnClickOption");
+    ButtonHelp.classList.toggle("OnClickOption");
 
 });
 
