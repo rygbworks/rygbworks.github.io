@@ -1,5 +1,20 @@
 // ホームページの核となるファイル
 
+// 実際に表示されている高さの1%をCSS変数として供給する
+// (アプリ内ブラウザ等、svh/dvhが実際の表示領域とズレる環境向けの対策)
+function UpdateRealViewportHeight() {
+
+    const ViewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    document.documentElement.style.setProperty("--RealVH", `${ViewportHeight * 0.01}px`);
+
+}
+
+UpdateRealViewportHeight();
+window.addEventListener("resize", UpdateRealViewportHeight);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", UpdateRealViewportHeight);
+}
+
 // body要素を取得
 const Body = document.querySelector("body");
 

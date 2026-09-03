@@ -9,7 +9,7 @@
 }
 
 :root {
-    --HeightHeaderFooter: 10svh;
+    --HeightHeaderFooter: calc(var(--RealVH, 1svh) * 10);
     --WidthButtonSquare: 7svh;
     --MarginEdgeButton: 10px;
     --MaxWidthContentsFooter: calc(100svw - var(--WidthButtonSquare) * 2 - var(--MarginEdgeButton) * 2);
@@ -20,6 +20,7 @@
     --SizeLogoSymbol: 7svh;
     --MarginEdgeLogo: 10px;
     --SizeBrick: calc(10.5svh + 30px) 100%;
+    color-scheme: light;
 }
 
 * {
@@ -40,7 +41,7 @@ noscript {
 body {
     background-color: #ccc;
     position: relative;
-    width: 100dvw; height: 100dvh;
+    width: 100dvw; height: calc(var(--RealVH, 1svh) * 100);
     text-align: center;
     font-family: "Riipop", sans-serif;
     visibility: hidden;
