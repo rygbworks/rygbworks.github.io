@@ -66,7 +66,7 @@ function MoveCrabVertical(TimeNow) {
 
     // １フレーム目からの経過時間からカニの垂直方向の位置を計算　カニに反映
     const DistanceJump = VelocityInitial * TimeElapsedSecond - Gravity * TimeElapsedSecond ** 2 / 2;
-    
+
     this.Crab.style.bottom = `${DistanceJump}px`;
 
     // １周期ごとに１フレーム目時点の時間をリセットして、繰り返し跳ねさせる
@@ -143,78 +143,21 @@ function DisplayCrab(Crab) {
 
 }
 
-// カニの色をランダムに決定する
+// カニの色をランダムに決め、横画面固有の出現方向（左右）を決めて表示する
 function ChooseCrab() {
 
-    // カニとなるHTML要素を生成
-    const Crab = document.createElement("div");
-    Crab.classList.add("Crab");
+    const Crab = ChooseCrabColor();
 
-    // ランダムに数字を定義して数値に応じてカニの色を決める（紫カニは残り２０秒を切るまでは出現しない）
-    let NumberRandom;
-
-    if (0 < Number.parseInt(CountText.textContent) && Number.parseInt(CountText.textContent) < 20) {
-        NumberRandom = Math.random() * 4.1;
+    if (Crab.classList.contains("CrabR") || Crab.classList.contains("CrabY")) {
+        Crab.classList.add("Left");
+    }
+    else if (Crab.classList.contains("CrabB") || Crab.classList.contains("CrabG")) {
+        Crab.classList.add("Right");
     }
     else {
-        NumberRandom = Math.random() * 4.0;
-    }
-
-    if (NumberRandom < 1) {
-        Crab.classList.add("CrabR", "Left");
-    }
-    else if (NumberRandom < 2) {
-        Crab.classList.add("CrabB", "Right");
-    }
-    else if (NumberRandom < 3) {
-        Crab.classList.add("CrabY", "Left");
-    }
-    else if (NumberRandom < 4) {
-        Crab.classList.add("CrabG", "Right");
-    }
-    else {
-
-        NumberRandom = Math.random();
-
-        if (NumberRandom < 0.5) {
-            Crab.classList.add("CrabP", "Left");
-        }
-        else {
-            Crab.classList.add("CrabP", "Right");
-        }
-
+        Crab.classList.add(Math.random() < 0.5 ? "Left" : "Right");
     }
 
     DisplayCrab(Crab);
 
 }
-
-let IntervalChooseCrab;
-
-// ゲームの状況を常に監視する　状況が変化したら１度だけcase内の処理を行う
-setInterval(() => {
-    
-    if (StateGame !== StateGamePrevious.CrabJS) {
-    
-        // ゲーム開始後、１秒ごとにカニを出現させる　ゲームに勝ったらカニの出現が終わる
-        switch (StateGame) {
-
-            case ObjectStateGame.AfterStart:
-
-                IntervalChooseCrab = setInterval(ChooseCrab, 1000);
-
-                break;
-    
-            case ObjectStateGame.Success:
-    
-                clearInterval(IntervalChooseCrab);
-    
-            break;
-    
-        }
-    
-    }
-    
-    StateGamePrevious.CrabJS = StateGame;
-
-}, 10);

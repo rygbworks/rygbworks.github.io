@@ -40,13 +40,23 @@ function LoadModeHorizontal() {
     JS_Countdown.async = false;
     document.head.append(JS_Countdown);
 
+    const JS_ChickenCommon = document.createElement("script");
+    JS_ChickenCommon.src = "/assets/js/game/chicken.js";
+    JS_ChickenCommon.async = false;
+    document.head.append(JS_ChickenCommon);
+
+    const JS_CrabCommon = document.createElement("script");
+    JS_CrabCommon.src = "/assets/js/game/crab.js";
+    JS_CrabCommon.async = false;
+    document.head.append(JS_CrabCommon);
+
     const JS_Chicken = document.createElement("script");
-    JS_Chicken.src = "/assets/js/game/game-horizontal/chicken.js";
+    JS_Chicken.src = "/assets/js/game/chicken-horizontal.js";
     JS_Chicken.async = false;
     document.head.append(JS_Chicken);
 
     const JS_Crab = document.createElement("script");
-    JS_Crab.src = "/assets/js/game/game-horizontal/crab.js";
+    JS_Crab.src = "/assets/js/game/crab-horizontal.js";
     JS_Crab.async = false;
     document.head.append(JS_Crab);
 
@@ -75,13 +85,23 @@ function LoadModeVertical() {
     JS_Countdown.async = false;
     document.head.append(JS_Countdown);
 
+    const JS_ChickenCommon = document.createElement("script");
+    JS_ChickenCommon.src = "/assets/js/game/chicken.js";
+    JS_ChickenCommon.async = false;
+    document.head.append(JS_ChickenCommon);
+
+    const JS_CrabCommon = document.createElement("script");
+    JS_CrabCommon.src = "/assets/js/game/crab.js";
+    JS_CrabCommon.async = false;
+    document.head.append(JS_CrabCommon);
+
     const JS_Chicken = document.createElement("script");
-    JS_Chicken.src = "/assets/js/game/game-vertical/chicken.js";
+    JS_Chicken.src = "/assets/js/game/chicken-vertical.js";
     JS_Chicken.async = false;
     document.head.append(JS_Chicken);
 
     const JS_Crab = document.createElement("script");
-    JS_Crab.src = "/assets/js/game/game-vertical/crab.js";
+    JS_Crab.src = "/assets/js/game/crab-vertical.js";
     JS_Crab.async = false;
     document.head.append(JS_Crab);
 

@@ -13,7 +13,7 @@ const OptionsFlickCrabRotate = {
 function PlaySoundFlickCrab(SoundSourceFlickCrab) {
 
   SoundFlickCrab = ManagerAudio.createBufferSource();
-  
+
   SoundFlickCrab.buffer = SoundSourceFlickCrab;
 
   SoundFlickCrab.connect(ManagerAudio.destination);
@@ -30,7 +30,7 @@ function FlickCrab() {
     const PositionCrabVerticalStart = this.StyleCrab.getPropertyValue("bottom");
     const xCrabStart = Number.parseFloat(PositionCrabHorizontalStart) + Number.parseFloat(this.StyleCrab.getPropertyValue("width")) / 2;
     const yCrabStart = Number.parseFloat(PositionCrabVerticalStart) + Number.parseFloat(this.StyleCrab.getPropertyValue("width")) / 2;
-    
+
     // 終点＝カニがスポーンした位置　css「left」「bottom」と座標を取得しておく
     const PositionCrabHorizontalEnd = this.PositionHorizontalInitial;
     const PositionCrabVerticalEnd = this.PositionVerticalInitial;
@@ -63,7 +63,7 @@ function FlickCrab() {
         else {
             KeyframesFlickCrabRotate.rotate = ["0deg", "+360deg"];
         }
-        
+
     }
 
     // css「left」「bottom」の値を用いて始点から終点までの動きをアニメーションする
@@ -95,35 +95,35 @@ function DisplayCrab(Crab, StyleCrab) {
     const xCrabInitial = Number.parseFloat(ObjectCrab.PositionHorizontalInitial) + Number.parseFloat(StyleCrab.getPropertyValue("width")) / 2;
     const yCrabInitial = Number.parseFloat(ObjectCrab.PositionVerticalInitial) + Number.parseFloat(StyleCrab.getPropertyValue("width")) / 2;
     const WidthCrab = Number.parseFloat(StyleCrab.getPropertyValue("width"));
-    
+
     // 始点＝カニがスポーンした位置　css「left」「bottom」の値を定義しておく
     const PositionCrabHorizontalStart = ObjectCrab.PositionHorizontalInitial;
     const PositionCrabVerticalStart = ObjectCrab.PositionVerticalInitial;
-    
+
     // 終点＝ニワトリの位置　css「left」「bottom」の値を定義しておく
     const PositionCrabHorizontalEnd = `${xChicken - WidthCrab / 2}px`;
     const PositionCrabVerticalEnd = "0px";
-    
+
     // 座標を用いて始点から終点までの距離を計算する（とりあえずカニがどこでスポーンしても同じ速度でニワトリに向かうようにする）
     const DistanceCrabChicken = Math.sqrt((xChicken - xCrabInitial) ** 2 + (yChicken - yCrabInitial) ** 2);
-    
+
     // 始点から終点までにかかる時間を定義する（乱数で速度にばらつきを与える）
     let Duration;
-    
+
     if (Crab.classList.contains("CrabP")) {
         Duration = DistanceCrabChicken / HeightContents * 1000 * (Math.random() * 0.2 + 0.4);
     }
     else {
         Duration = DistanceCrabChicken / HeightContents * 1000 * (Math.random() * 0.5 + 1.0);
     }
-    
+
     // css「left」「bottom」の値を用いて始点から終点までの動きをアニメーションする
     ObjectCrab.KeyframesCrab.left = [PositionCrabHorizontalStart, PositionCrabHorizontalEnd];
     ObjectCrab.KeyframesCrab.bottom = [PositionCrabVerticalStart, PositionCrabVerticalEnd];
     ObjectCrab.OptionsCrab.duration = Duration;
-    
+
     Crab.animate(ObjectCrab.KeyframesCrab, ObjectCrab.OptionsCrab);
-    
+
     // タッチするとカニを弾き飛ばす
     Crab.addEventListener("pointerdown", FlickCrab.bind(ObjectCrab), { once: true });
 
@@ -167,69 +167,11 @@ function ChoosePosition(Crab) {
 
 }
 
-// カニの色をランダムに決定する
+// カニの色をランダムに決めて、縦画面固有の出現位置を決めて表示する
 function ChooseCrab() {
 
-    // カニとなるHTML要素を生成
-    const Crab = document.createElement("div");
-    Crab.classList.add("Crab");
-
-    // ランダムに数字を定義して数値に応じてカニの色を決める（紫カニは残り２０秒を切るまでは出現しない）
-    let NumberRandom;
-
-    if (0 < Number.parseInt(CountText.textContent) && Number.parseInt(CountText.textContent) < 20) {
-        NumberRandom = Math.random() * 4.1;
-    }
-    else {
-        NumberRandom = Math.random() * 4.0;
-    }
-
-    if (NumberRandom < 1.0) {
-        Crab.classList.add("CrabR");
-    }
-    else if (NumberRandom < 2.0) {
-        Crab.classList.add("CrabB");
-    }
-    else if (NumberRandom < 3.0) {
-        Crab.classList.add("CrabY");
-    }
-    else if (NumberRandom < 4.0) {
-        Crab.classList.add("CrabG");
-    }
-    else {
-        Crab.classList.add("CrabP");
-    }
+    const Crab = ChooseCrabColor();
 
     ChoosePosition(Crab);
 
 }
-
-let IntervalChooseCrab;
-
-// ゲームの状況を常に監視する　状況が変化したら１度だけcase内の処理を行う
-setInterval(() => {
-    
-    if (StateGame !== StateGamePrevious.CrabJS) {
-    
-        // ゲーム開始後、１秒ごとにカニを出現させる　ゲームに勝ったらカニの出現が終わる
-        switch (StateGame) {
-
-            case ObjectStateGame.AfterStart:
-
-                IntervalChooseCrab = setInterval(ChooseCrab, 1000);
-
-                break;
-    
-            case ObjectStateGame.Success:
-    
-                clearInterval(IntervalChooseCrab);
-    
-                break;
-    
-        }
-    
-    }
-    
-    StateGamePrevious.CrabJS = StateGame;
-
-}, 10);
