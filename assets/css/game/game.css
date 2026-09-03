@@ -2,8 +2,12 @@
 
 @charset "utf-8";
 
+:root {
+    --AspectRatioChicken: 1 / 1.2;
+}
+
 #Contents {
-    bottom: calc(10svh - 0.3vw);
+    bottom: calc(var(--HeightHeaderFooter) - 0.3vw);
 }
 
 #ErrorAspectRatio {
@@ -45,7 +49,7 @@
 
 #Chicken {
     position: absolute;
-    width: var(--WidthChicken); aspect-ratio: 1 / 1.2;
+    width: var(--WidthChicken); aspect-ratio: var(--AspectRatioChicken);
     left: calc(50% - var(--WidthChicken) / 2); bottom: 0;
     background-image: url(/assets/image/character/anime-chicken.webp);
     background-repeat: no-repeat;
@@ -84,7 +88,7 @@
 
 #EffectFlickChicken {
     position: absolute;
-    width: var(--WidthEffectFlickChicken); aspect-ratio: 1 / 1.2;
+    width: var(--WidthEffectFlickChicken); aspect-ratio: var(--AspectRatioChicken);
     background-image: url(/assets/image/character/flick-chicken.webp);
     background-repeat: no-repeat;
     background-size: contain;

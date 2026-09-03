@@ -125,10 +125,10 @@ function FlyChicken() {
 
     // ニワトリの向いている方向に合うように左上か右上に羽ばたく
     if (ScaleChicken.split(" ")[0] === "-1") {
-        KeyframesChickenFly.translate = [0, "-30vw -100vh"];console.log("-1");
+        KeyframesChickenFly.translate = [0, "-30vw -100vh"];
     }
     else {
-        KeyframesChickenFly.translate = [0, "+30vw -100vh"];console.log("+1");
+        KeyframesChickenFly.translate = [0, "+30vw -100vh"];
     }
 
     Chicken.animate(KeyframesChickenFly, OptionsChickenFly);
