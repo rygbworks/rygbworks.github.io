@@ -1,0 +1,32 @@
+/* 縦画面ゲームに必要なスタイル情報をまとめたファイル */
+
+@charset "utf-8";
+
+:root {
+    --SizeFontCountText: 10dvw;
+    --WidthButton: 160px;
+    --WidthChicken: 10dvh;
+    --WidthCrab: 10dvh;
+    --WidthEffectFlickChicken: 15dvh;
+}
+
+footer.Tap.En.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-vertical-tap-en.webp);
+    background-size: auto 5svh;
+}
+footer.Tap.Ja.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-vertical-tap-ja.webp);
+    background-size: auto 5svh;
+}
+footer.Keyboard.En.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-vertical-keyboard-en.webp);
+    background-size: auto 5svh;
+}
+footer.Keyboard.Ja.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-vertical-keyboard-ja.webp);
+    background-size: auto 5svh;
+}
+
+#CountText {
+    top: 30%;
+}

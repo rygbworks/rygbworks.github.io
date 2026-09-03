@@ -1,0 +1,33 @@
+/* 横画面ゲームに必要なスタイル情報をまとめたファイル */
+
+@charset "utf-8";
+
+:root {
+    --AspectRatioGuideHorizontal: calc(2160 / 120);
+    --SizeFontCountText: 8dvw;
+    --WidthButton: 200px;
+    --WidthChicken: 8dvw;
+    --WidthCrab: 8dvw;
+    --WidthEffectFlickChicken: 12dvw;
+}
+
+footer.Tap.En.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-horizontal-tap-en.webp);
+    background-size: auto min(5svh, calc(70svw / var(--AspectRatioGuideHorizontal)));
+}
+footer.Tap.Ja.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-horizontal-tap-ja.webp);
+    background-size: auto min(5svh, calc(70svw / var(--AspectRatioGuideHorizontal)));
+}
+footer.Keyboard.En.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-horizontal-keyboard-en.webp);
+    background-size: auto min(5svh, calc(70svw / var(--AspectRatioGuideHorizontal)));
+}
+footer.Keyboard.Ja.OnClickHelp:not(.OnClickOption) {
+    background-image: url(/assets/image/decoration/guide-horizontal-keyboard-ja.webp);
+    background-size: auto min(5svh, calc(70svw / var(--AspectRatioGuideHorizontal)));
+}
+
+#CountText {
+    top: 20%;
+}

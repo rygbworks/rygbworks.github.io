@@ -1,0 +1,373 @@
+/* 常に表示される部分のスタイル情報をまとめたファイル */
+
+@charset "utf-8";
+
+@font-face {
+    font-family: "Riipop";
+    src: url(/assets/font/riipopkr.otf) format("opentype");
+    font-display: swap;
+}
+
+* {
+    background-color: transparent;
+    padding: 0; margin: 0; border: 0 none transparent;
+}
+
+noscript {
+    color: #fff;
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    left: 0; bottom: 50%;
+    z-index: 99;
+    visibility: visible;
+}
+
+body {
+    background-color: #ccc;
+    position: relative;
+    width: 100dvw; height: 100dvh;
+    text-align: center;
+    font-family: "Riipop", sans-serif;
+    visibility: hidden;
+    touch-action: none;
+    user-select: none;
+}
+
+header, footer {
+    background-color: #666;
+    position: fixed;
+    width: 100%; height: 10svh;
+    background-repeat: no-repeat;
+    z-index: 90;
+}
+header {
+    top: 0;
+}
+footer {
+    bottom: 0;
+    background-image: url(/assets/image/decoration/text-footer.webp);
+    background-size: auto 3svh;
+    background-position: center;
+}
+
+#Contents {
+    position: fixed;
+    width: 100%;
+    top: 10svh; bottom: 10svh;
+    overflow: hidden;
+}
+
+#ErrorAspectRatio {
+    display: none;
+}
+#ErrorAspectRatio.Display {
+    color: #fff;
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    left: 0; bottom: 50%;
+    z-index: 99;
+}
+
+button {
+    transition-property: scale;
+    transition-duration: 200ms;
+}
+button:hover {
+    background-blend-mode: multiply;
+    scale: 1.1;
+}
+
+button.ButtonSquare {
+    width: 7svh; aspect-ratio: 1 / 1;
+    border-radius: 26%;
+    box-shadow: 0 0.5svh 0.5svh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#ButtonOption {
+    position: absolute;
+    right: 10px; top: calc(50% - 3.5svh);
+    background-image: url(/assets/image/button/button-option.webp), url(/assets/image/button/button-option-push.webp);
+    z-index: 91;
+}
+#ButtonOption:active {
+    background-image: url(/assets/image/button/button-option-push.webp);
+}
+
+#ButtonHelp {
+    display: none;
+    position: absolute;
+    left: 10px; top: calc(50% - 3.5svh);
+    background-image: url(/assets/image/button/button-help.webp), url(/assets/image/button/button-help-push.webp);
+}
+#ButtonHelp:active {
+    background-image: url(/assets/image/button/button-help-push.webp);
+}
+
+nav#HomeMenu {
+    background-color: #999;
+    position: fixed;
+    width: 100%;
+    top: 10svh; bottom: 10svh;
+    opacity: 0;
+    pointer-events: none;
+    overflow-y: scroll;
+    transition: all 500ms;
+    z-index: 80;
+}
+
+nav#HomeMenu.OnClickOption {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.MenuCrab {
+    position: fixed;
+    width: var(--WidthMenuCrab); aspect-ratio: 1 / 1;
+    top: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    transition: all 0.5s;
+    z-index: 81;
+}
+#MenuCrabR.MenuCrab {
+    right: 70%;
+    background-image: url(/assets/image/character/anime-crab-r.webp);
+}
+#MenuCrabB.MenuCrab {
+    left: 70%;
+    background-image: url(/assets/image/character/anime-crab-b.webp);
+}
+#MenuCrabY.MenuCrab {
+    right: 100%;
+    background-image: url(/assets/image/character/anime-crab-y.webp);
+}
+#MenuCrabG.MenuCrab {
+    left: 100%;
+    background-image: url(/assets/image/character/anime-crab-g.webp);
+}
+#MenuCrabP.MenuCrab {
+    left: calc(50% - var(--WidthMenuCrab) / 2);
+    background-image: url(/assets/image/character/anime-crab-p.webp);
+}
+
+.MenuCrab.OnClickOption {
+    top: calc(100% - var(--WidthMenuCrab) - 10svh);
+}
+#MenuCrabR.MenuCrab.OnClickOption {
+    right: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab));
+    animation: MenuCrabR 2000ms ease-in-out infinite;
+}
+#MenuCrabB.MenuCrab.OnClickOption {
+    left: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab));
+    animation: MenuCrabB 2000ms ease-in-out infinite;
+}
+#MenuCrabY.MenuCrab.OnClickOption {
+    right: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab) * 2);
+    animation: MenuCrabY 2000ms ease-in-out infinite;
+}
+#MenuCrabG.MenuCrab.OnClickOption {
+    left: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab) * 2);
+    animation: MenuCrabG 2000ms ease-in-out infinite;
+}
+#MenuCrabP.MenuCrab.OnClickOption {
+    animation: MenuCrabP 2000ms ease-in-out infinite;
+}
+@keyframes MenuCrabY {
+    0% {
+        translate: 0;
+    }
+    30% {
+        translate: 0;
+    }
+    40% {
+        translate: 0 calc(-1 * var(--WidthMenuCrab));
+    }
+    50% {
+        translate: 0;
+    }
+    100% {
+        translate: 0;
+    }
+}
+@keyframes MenuCrabR {
+    0% {
+        translate: 0;
+    }
+    40% {
+        translate: 0;
+    }
+    50% {
+        translate: 0 calc(-1 * var(--WidthMenuCrab));
+    }
+    60% {
+        translate: 0;
+    }
+    100% {
+        translate: 0;
+    }
+}
+@keyframes MenuCrabP {
+    0% {
+        translate: 0;
+    }
+    50% {
+        translate: 0;
+    }
+    60% {
+        translate: 0 calc(-1 * var(--WidthMenuCrab));
+    }
+    70% {
+        translate: 0;
+    }
+    100% {
+        translate: 0;
+    }
+}
+@keyframes MenuCrabB {
+    0% {
+        translate: 0;
+    }
+    60% {
+        translate: 0;
+    }
+    70% {
+        translate: 0 calc(-1 * var(--WidthMenuCrab));
+    }
+    80% {
+        translate: 0;
+    }
+    100% {
+        translate: 0;
+    }
+}
+@keyframes MenuCrabG {
+    0% {
+        translate: 0;
+    }
+    70% {
+        translate: 0;
+    }
+    80% {
+        translate: 0 calc(-1 * var(--WidthMenuCrab));
+    }
+    90% {
+        translate: 0;
+    }
+    100% {
+        translate: 0;
+    }
+}
+
+#HomeMenu #Palette {
+    display: grid;
+    box-sizing: border-box;
+    position: absolute;
+    width: calc(100% - (100dvw - 100%));
+    gap: var(--GapPalette);
+    padding: var(--GapPalette);
+    left: calc(100dvw - 100%); top: 0;
+    translate: 0 -100%;
+    transition: all 500ms;
+    z-index: 82;
+}
+#HomeMenu #Palette.OnClickOption {
+    translate: 0;
+}
+
+#HomeMenu #Palette figure .Icon {
+    display: block;
+    width: 100%;
+    box-shadow: 0 calc(var(--GapPalette) / 2) calc(var(--GapPalette) / 2);
+    transition: all 200ms;
+    animation: Icon 2500ms linear infinite;
+}
+#HomeMenu #Palette figure .Icon:hover {
+    scale: 1.1;
+}
+#HomeMenu #Palette figure .Icon:active {
+    opacity: 0.5;
+}
+@keyframes Icon {
+    0% {
+        border-radius: 20%;
+    }
+    50% {
+        border-radius: 50%;
+    }
+    100% {
+        border-radius: 20%;
+    }
+}
+
+#HomeMenu #Palette figure figcaption {
+    color: #fff;
+    margin-top: var(--GapPalette);
+    font-size: var(--SizeFont);
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+
+    :root {
+        --WidthMenuCrab: 20dvw;
+        --GapPalette: 3dvw;
+        --SizeFont: 3dvw;
+    }
+
+    header {
+        background-image: url(/assets/image/decoration/text-header-small.webp), url(/assets/image/decoration/symbol.webp), url(/assets/image/decoration/brick.webp);
+        background-size: auto 8svh, 7svh, calc(10.5svh + 30px) 100%;
+        background-position: center, left 10px center, right center;
+    }
+
+    #HomeMenu #Palette {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media screen and (min-width: 500px) and (max-width: 1000px) {
+
+    :root {
+        --WidthMenuCrab: 15dvw;
+        --GapPalette: 2dvw;
+        --SizeFont: 2dvw;
+    }
+
+    header {
+        background-image: url(/assets/image/decoration/text-header-small.webp), url(/assets/image/decoration/symbol.webp), url(/assets/image/decoration/brick.webp);
+        background-size: auto 8svh, 7svh, calc(10.5svh + 30px) 100%;
+        background-position: left calc(10px + 7svh + 20px) center, left 10px center, right center;
+    }
+
+    #HomeMenu #Palette {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+}
+
+@media screen and (min-width: 1000px) and (max-width: 9999px) {
+
+    :root {
+        --WidthMenuCrab: 10dvw;
+        --GapPalette: 1dvw;
+        --SizeFont: 1dvw;
+    }
+
+    header {
+        background-image: url(/assets/image/decoration/text-header-large.webp), url(/assets/image/decoration/symbol.webp), url(/assets/image/decoration/brick.webp);
+        background-size: auto 6svh, 7svh, calc(10.5svh + 30px) 100%;
+        background-position: left calc(10px + 7svh + 30px) center, left 10px center, right center;
+    }
+
+    #HomeMenu #Palette {
+        grid-template-columns: repeat(9, 1fr);
+    }
+
+}
