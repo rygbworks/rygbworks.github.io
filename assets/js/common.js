@@ -40,25 +40,25 @@ function LoadModeHorizontal() {
     JS_Countdown.async = false;
     document.head.append(JS_Countdown);
 
-    const JS_ChickenCommon = document.createElement("script");
-    JS_ChickenCommon.src = "/assets/js/game/chicken.js";
-    JS_ChickenCommon.async = false;
-    document.head.append(JS_ChickenCommon);
-
-    const JS_CrabCommon = document.createElement("script");
-    JS_CrabCommon.src = "/assets/js/game/crab.js";
-    JS_CrabCommon.async = false;
-    document.head.append(JS_CrabCommon);
-
     const JS_Chicken = document.createElement("script");
-    JS_Chicken.src = "/assets/js/game/chicken-horizontal.js";
+    JS_Chicken.src = "/assets/js/game/chicken.js";
     JS_Chicken.async = false;
     document.head.append(JS_Chicken);
 
     const JS_Crab = document.createElement("script");
-    JS_Crab.src = "/assets/js/game/crab-horizontal.js";
+    JS_Crab.src = "/assets/js/game/crab.js";
     JS_Crab.async = false;
     document.head.append(JS_Crab);
+
+    const JS_ChickenHorizontal = document.createElement("script");
+    JS_ChickenHorizontal.src = "/assets/js/game/chicken-horizontal.js";
+    JS_ChickenHorizontal.async = false;
+    document.head.append(JS_ChickenHorizontal);
+
+    const JS_CrabHorizontal = document.createElement("script");
+    JS_CrabHorizontal.src = "/assets/js/game/crab-horizontal.js";
+    JS_CrabHorizontal.async = false;
+    document.head.append(JS_CrabHorizontal);
 
 }
 
@@ -85,25 +85,25 @@ function LoadModeVertical() {
     JS_Countdown.async = false;
     document.head.append(JS_Countdown);
 
-    const JS_ChickenCommon = document.createElement("script");
-    JS_ChickenCommon.src = "/assets/js/game/chicken.js";
-    JS_ChickenCommon.async = false;
-    document.head.append(JS_ChickenCommon);
-
-    const JS_CrabCommon = document.createElement("script");
-    JS_CrabCommon.src = "/assets/js/game/crab.js";
-    JS_CrabCommon.async = false;
-    document.head.append(JS_CrabCommon);
-
     const JS_Chicken = document.createElement("script");
-    JS_Chicken.src = "/assets/js/game/chicken-vertical.js";
+    JS_Chicken.src = "/assets/js/game/chicken.js";
     JS_Chicken.async = false;
     document.head.append(JS_Chicken);
 
     const JS_Crab = document.createElement("script");
-    JS_Crab.src = "/assets/js/game/crab-vertical.js";
+    JS_Crab.src = "/assets/js/game/crab.js";
     JS_Crab.async = false;
     document.head.append(JS_Crab);
+
+    const JS_ChickenVertical = document.createElement("script");
+    JS_ChickenVertical.src = "/assets/js/game/chicken-vertical.js";
+    JS_ChickenVertical.async = false;
+    document.head.append(JS_ChickenVertical);
+
+    const JS_CrabVertical = document.createElement("script");
+    JS_CrabVertical.src = "/assets/js/game/crab-vertical.js";
+    JS_CrabVertical.async = false;
+    document.head.append(JS_CrabVertical);
 
 }
 
