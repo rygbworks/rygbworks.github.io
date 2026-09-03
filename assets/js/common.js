@@ -14,40 +14,8 @@ window.addEventListener("resize", UpdateRealViewportHeight);
 if (window.visualViewport) {
     window.visualViewport.addEventListener("resize", UpdateRealViewportHeight);
 }
-
-// デバッグ用: 実機での実測値を#testに表示する
-function UpdateDebugOverlay() {
-
-    const TestElement = document.querySelector("#test");
-    if (!TestElement) {
-        return;
-    }
-
-    const HeaderRect = document.querySelector("header").getBoundingClientRect();
-    const FooterRect = document.querySelector("footer").getBoundingClientRect();
-    const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
-
-    TestElement.textContent = [
-        `ver.0.0`,
-        `UA: ${navigator.userAgent}`,
-        `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
-        `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
-        `prefers-color-scheme dark: ${window.matchMedia("(prefers-color-scheme: dark)").matches}`,
-        `RealVH: ${getComputedStyle(document.documentElement).getPropertyValue("--RealVH")}`,
-        `header: top=${HeaderRect.top.toFixed(1)} bottom=${HeaderRect.bottom.toFixed(1)} h=${HeaderRect.height.toFixed(1)}`,
-        `Contents: top=${ContentsRect.top.toFixed(1)} bottom=${ContentsRect.bottom.toFixed(1)} h=${ContentsRect.height.toFixed(1)}`,
-        `footer: top=${FooterRect.top.toFixed(1)} bottom=${FooterRect.bottom.toFixed(1)} h=${FooterRect.height.toFixed(1)}`,
-        `gap Contents-Footer: ${(FooterRect.top - ContentsRect.bottom).toFixed(1)}`,
-    ].join("\n");
-
-}
-
-UpdateDebugOverlay();
-window.addEventListener("resize", UpdateDebugOverlay);
-if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", UpdateDebugOverlay);
-}
-window.setInterval(UpdateDebugOverlay, 1000);
+// resize/visualViewport resizeイベントが発火しないアプリ内ブラウザ対策として定期的にも更新する
+window.setInterval(UpdateRealViewportHeight, 500);
 
 // body要素を取得
 const Body = document.querySelector("body");
@@ -197,7 +165,7 @@ Contents.addEventListener("contextmenu", (event) => {
 });
 
 // ウィンドウの変形によって変化する情報を更新　場合によってはリロード
-window.addEventListener("resize", () => {
+function UpdateContentsMetrics() {
 
     WidthContents = Number.parseFloat(StyleContents.getPropertyValue("width"));
     HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
@@ -207,4 +175,48 @@ window.addEventListener("resize", () => {
         window.location.reload();
     }
 
-});
+}
+
+window.addEventListener("resize", UpdateContentsMetrics);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", UpdateContentsMetrics);
+}
+// resize/visualViewport resizeイベントが発火しないアプリ内ブラウザ対策として定期的にも更新する
+window.setInterval(UpdateContentsMetrics, 500);
+
+// デバッグ用: 実機での実測値を#testに表示する
+function UpdateDebugOverlay() {
+
+    const TestElement = document.querySelector("#test");
+    if (!TestElement) {
+        return;
+    }
+
+    const HeaderRect = document.querySelector("header").getBoundingClientRect();
+    const FooterRect = document.querySelector("footer").getBoundingClientRect();
+    const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
+
+    TestElement.textContent = [
+        `ver.0.0`,
+        `UA: ${navigator.userAgent}`,
+        `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
+        `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
+        `prefers-color-scheme dark: ${window.matchMedia("(prefers-color-scheme: dark)").matches}`,
+        `RealVH: ${getComputedStyle(document.documentElement).getPropertyValue("--RealVH")}`,
+        `header: top=${HeaderRect.top.toFixed(1)} bottom=${HeaderRect.bottom.toFixed(1)} h=${HeaderRect.height.toFixed(1)}`,
+        `Contents: top=${ContentsRect.top.toFixed(1)} bottom=${ContentsRect.bottom.toFixed(1)} h=${ContentsRect.height.toFixed(1)}`,
+        `footer: top=${FooterRect.top.toFixed(1)} bottom=${FooterRect.bottom.toFixed(1)} h=${FooterRect.height.toFixed(1)}`,
+        `gap Contents-Footer: ${(FooterRect.top - ContentsRect.bottom).toFixed(1)}`,
+        `HeightContents(JS)=${HeightContents} WidthContents(JS)=${WidthContents}`,
+        `AspectRatio=${AspectRatio.toFixed(3)} Mode=${Mode}`,
+        `CrabsAlive=${typeof ArrayObjectCrab !== "undefined" ? ArrayObjectCrab.length : "N/A"}`,
+    ].join("\n");
+
+}
+
+UpdateDebugOverlay();
+window.addEventListener("resize", UpdateDebugOverlay);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", UpdateDebugOverlay);
+}
+window.setInterval(UpdateDebugOverlay, 1000);

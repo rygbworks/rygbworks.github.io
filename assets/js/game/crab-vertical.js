@@ -66,6 +66,9 @@ function FlickCrab() {
 
     }
 
+    // HeightContentsの更新が一瞬遅れても異常な値にならないようにする
+    Duration = Math.min(Duration, 3000);
+
     // css「left」「bottom」の値を用いて始点から終点までの動きをアニメーションする
     this.KeyframesCrab.left = [PositionCrabHorizontalStart, PositionCrabHorizontalEnd];
     this.KeyframesCrab.bottom = [PositionCrabVerticalStart, PositionCrabVerticalEnd];
@@ -116,6 +119,9 @@ function DisplayCrab(Crab, StyleCrab) {
     else {
         Duration = DistanceCrabChicken / HeightContents * 1000 * (Math.random() * 0.5 + 1.0);
     }
+
+    // HeightContentsの更新が一瞬遅れても、カニが寿命(7000ms)より先に消えないようにする
+    Duration = Math.min(Duration, 6500);
 
     // css「left」「bottom」の値を用いて始点から終点までの動きをアニメーションする
     ObjectCrab.KeyframesCrab.left = [PositionCrabHorizontalStart, PositionCrabHorizontalEnd];
