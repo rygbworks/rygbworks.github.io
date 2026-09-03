@@ -77,7 +77,7 @@ header {
 }
 footer {
     --AspectRatioTextFooter: calc(1800 / 200);
-    bottom: 0;
+    top: calc(var(--RealVH, 1svh) * 90);
     background-image: url(/assets/image/decoration/text-footer.webp);
     background-size: auto min(3svh, calc(var(--MaxWidthContentsFooter) / var(--AspectRatioTextFooter)));
     background-position: center;
