@@ -9,7 +9,7 @@
 }
 
 :root {
-    --HeightHeaderFooter: calc(var(--RealVH, 1svh) * 10);
+    --HeightHeaderFooter: 10svh;
     --WidthButtonSquare: 7svh;
     --MarginEdgeButton: 10px;
     --MaxWidthContentsFooter: calc(100svw - var(--WidthButtonSquare) * 2 - var(--MarginEdgeButton) * 2);
@@ -20,23 +20,6 @@
     --SizeLogoSymbol: 7svh;
     --MarginEdgeLogo: 10px;
     --SizeBrick: calc(10.5svh + 30px) 100%;
-    color-scheme: light;
-}
-
-#test {
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 999;
-    max-width: 90vw;
-    padding: 4px 6px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #0f0;
-    font-family: monospace;
-    font-size: 11px;
-    line-height: 1.4;
-    text-align: left;
-    white-space: pre-wrap;
-    pointer-events: none;
 }
 
 * {
@@ -57,7 +40,7 @@ noscript {
 body {
     background-color: #ccc;
     position: relative;
-    width: 100dvw; height: calc(var(--RealVH, 1svh) * 100);
+    width: 100dvw; height: 100dvh;
     text-align: center;
     font-family: "Riipop", sans-serif;
     visibility: hidden;
@@ -77,7 +60,7 @@ header {
 }
 footer {
     --AspectRatioTextFooter: calc(1800 / 200);
-    top: calc(var(--RealVH, 1svh) * 90);
+    bottom: 0;
     background-image: url(/assets/image/decoration/text-footer.webp);
     background-size: auto min(3svh, calc(var(--MaxWidthContentsFooter) / var(--AspectRatioTextFooter)));
     background-position: center;
