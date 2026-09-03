@@ -100,7 +100,7 @@ button:hover {
 }
 
 button.ButtonSquare {
-    background-color: transparent;
+    background-color: #fff;
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
     box-shadow: 0 0.5svh 0.5svh;
