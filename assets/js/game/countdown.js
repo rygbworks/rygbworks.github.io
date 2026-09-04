@@ -126,14 +126,22 @@ document.addEventListener("keydown", (event) => {
 // ロード後、カウントダウンを１秒間隔で実行する
 let IntervalCountdown;
 
-window.addEventListener("load", () => {
+function StartCountdownAfterLoad() {
 
     setTimeout(() => {
         StateGame = ObjectStateGame.AfterStart
         IntervalCountdown = setInterval(Countdown, 1000);
     }, 1000);
 
-});
+}
+
+// このスクリプトの読み込みがモード決定待ちで遅れ、loadイベントが既に発生済みのこともあるため
+if (document.readyState === "complete") {
+    StartCountdownAfterLoad();
+}
+else {
+    window.addEventListener("load", StartCountdownAfterLoad);
+}
 
 // ゲームの状況を常に監視する　状況が変化したら１度だけcase内の処理を行う
 setInterval(() => {

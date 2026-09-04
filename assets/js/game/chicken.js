@@ -147,6 +147,14 @@ function DetectCollisionChicken() {
 }
 
 // ロード後ニワトリが上から落ちてくるときのアニメーションをする
-window.addEventListener("load", () => {
+function StartChickenAppearAfterLoad() {
     Chicken.animate(KeyframesChickenAppear, OptionsChickenAppear);
-});
+}
+
+// このスクリプトの読み込みがモード決定待ちで遅れ、loadイベントが既に発生済みのこともあるため
+if (document.readyState === "complete") {
+    StartChickenAppearAfterLoad();
+}
+else {
+    window.addEventListener("load", StartChickenAppearAfterLoad);
+}

@@ -38,7 +38,7 @@ function UpdateDebugOverlay() {
     const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
 
     TestElement.textContent = [
-        `ver.0.18`,
+        `ver.0.19`,
         `UA: ${navigator.userAgent}`,
         `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
         `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
@@ -176,21 +176,50 @@ function CheckMode() {
 
 }
 
-const Mode = CheckMode();
+// #Contentsのアスペクト比の測定が安定するまで待ってから、ゲームモードを決定・読み込みする
+// (Xアプリ内ブラウザでは起動直後の1回目の測定が実際の表示領域と異なり、
+//  その後一方向に修正されることがあるため、決定を急がない)
+let Mode;
 
-switch (Mode) {
+function DecideModeWhenStable(AttemptsLeft) {
 
-    case "ModeHorizontal":
-        LoadModeHorizontal();
-        break;
+    UpdateContentsPosition();
 
-    case "ModeVertical":
-        LoadModeVertical();
-        break;
-    case "Error":
-        ErrorAspectRatio.classList.add("Display");
+    const NewWidthContents = Number.parseFloat(StyleContents.getPropertyValue("width"));
+    const NewHeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
+    const NewAspectRatio = NewWidthContents / NewHeightContents;
+    const IsStable = (NewAspectRatio === AspectRatio);
+
+    WidthContents = NewWidthContents;
+    HeightContents = NewHeightContents;
+    AspectRatio = NewAspectRatio;
+
+    if (IsStable || AttemptsLeft <= 0) {
+
+        Mode = CheckMode();
+
+        switch (Mode) {
+
+            case "ModeHorizontal":
+                LoadModeHorizontal();
+                break;
+
+            case "ModeVertical":
+                LoadModeVertical();
+                break;
+            case "Error":
+                ErrorAspectRatio.classList.add("Display");
+
+        }
+
+    }
+    else {
+        requestAnimationFrame(() => DecideModeWhenStable(AttemptsLeft - 1));
+    }
 
 }
+
+requestAnimationFrame(() => DecideModeWhenStable(30));
 
 // コンテンツ画面領域の余計なクリックアクションを無効化
 Contents.addEventListener("contextmenu", (event) => {
@@ -206,7 +235,8 @@ function UpdateContentsMetrics() {
     HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
     AspectRatio = WidthContents / HeightContents;
 
-    if (Mode !== CheckMode()) {
+    // Modeがまだ確定していない(安定待ちの)間は判定しない
+    if (Mode !== undefined && Mode !== CheckMode()) {
         window.location.reload();
     }
 
