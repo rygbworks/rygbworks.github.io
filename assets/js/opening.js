@@ -40,6 +40,23 @@ window.addEventListener("keydown", () => {
     Footer.classList.remove("Tap");
 });
 
+// キーボード操作がフォーカスの位置によってゲーム(iframe)に届かないことがあるため、
+// 親ページ側で受け取ったキー入力を、今表示中のiframeへ転送する
+// (iframe内で発生したキー入力は最初からiframe自身に届くため、ここでは重複しない)
+function ForwardKeyEventToGame(event) {
+    if (CurrentIframe && CurrentIframe.contentDocument) {
+        CurrentIframe.contentDocument.dispatchEvent(new KeyboardEvent(event.type, {
+            key: event.key,
+            code: event.code,
+            repeat: event.repeat,
+            bubbles: true,
+        }));
+    }
+}
+
+window.addEventListener("keydown", ForwardKeyEventToGame);
+window.addEventListener("keyup", ForwardKeyEventToGame);
+
 // オプションボタンのアニメーション情報を定義　アニメーションする
 const KeyframesButton = {
     scale: [0, 1],
