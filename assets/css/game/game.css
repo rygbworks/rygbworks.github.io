@@ -61,7 +61,7 @@
     z-index: 2;
     visibility: hidden;
 }
-#ButtonRetry:active {
+#ButtonRetry.Pressed {
     background-image: url(/assets/image/button/button-retry-push.webp);
 }
 

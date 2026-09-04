@@ -79,6 +79,36 @@ document.addEventListener("pointerout", (event) => {
     }
 });
 
+// タップが速すぎて:activeの見た目が1フレームも描画されないことがあるため、
+// 押された見た目(.Pressed)を最低100msは表示し続けるようJSで管理する
+const MinPressedDuration = 100;
+let PressedElement = null;
+let PressedSince = 0;
+
+document.addEventListener("pointerdown", (event) => {
+    const PressTarget = event.target.closest("button, .Icon");
+    if (PressTarget) {
+        PressedElement = PressTarget;
+        PressedSince = Date.now();
+        PressTarget.classList.add("Pressed");
+    }
+});
+
+function ReleasePressedElement() {
+    if (!PressedElement) {
+        return;
+    }
+    const ElementToRelease = PressedElement;
+    PressedElement = null;
+    const Remaining = Math.max(MinPressedDuration - (Date.now() - PressedSince), 0);
+    setTimeout(() => {
+        ElementToRelease.classList.remove("Pressed");
+    }, Remaining);
+}
+
+document.addEventListener("pointerup", ReleasePressedElement);
+document.addEventListener("pointercancel", ReleasePressedElement);
+
 // オプションボタンのアニメーション情報を定義　アニメーションする
 const KeyframesButton = {
     scale: [0, 1],

@@ -126,7 +126,7 @@ button.ButtonSquare {
     background-image: url(/assets/image/button/button-option.webp), url(/assets/image/button/button-option-push.webp);
     z-index: 91;
 }
-#ButtonOption:active {
+#ButtonOption.Pressed {
     background-image: url(/assets/image/button/button-option-push.webp);
 }
 
@@ -136,7 +136,7 @@ button.ButtonSquare {
     left: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
     background-image: url(/assets/image/button/button-help.webp), url(/assets/image/button/button-help-push.webp);
 }
-#ButtonHelp:active {
+#ButtonHelp.Pressed {
     background-image: url(/assets/image/button/button-help-push.webp);
 }
 
@@ -322,7 +322,7 @@ nav#HomeMenu.OnClickOption {
 #HomeMenu #Palette figure .Icon.Hovering {
     scale: 1.1;
 }
-#HomeMenu #Palette figure .Icon:active {
+#HomeMenu #Palette figure .Icon.Pressed {
     opacity: 0.5;
 }
 @keyframes Icon {
