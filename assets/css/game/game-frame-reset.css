@@ -25,6 +25,11 @@ html, body {
     text-align: center;
 }
 
+button {
+    /* button要素は既定でbodyのcolorを継承しないため、currentColor(box-shadowなど)がずれないよう明示的に継承させる */
+    color: inherit;
+}
+
 #GameArea {
     position: relative;
     width: 100%; height: 100%;

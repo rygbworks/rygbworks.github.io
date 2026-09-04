@@ -38,7 +38,7 @@ function UpdateDebugOverlay() {
     const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
 
     TestElement.textContent = [
-        `ver.0.24`,
+        `ver.0.25`,
         `UA: ${navigator.userAgent}`,
         `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
         `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
