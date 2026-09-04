@@ -21,3 +21,21 @@ let HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"))
 Contents.addEventListener("contextmenu", (event) => {
     event.preventDefault();
 });
+
+// マウス/トラックパッド操作時のみボタンをホバー状態にする(親ページ側と同じ理由)
+document.addEventListener("pointerover", (event) => {
+    if (event.pointerType === "touch") {
+        return;
+    }
+    const HoverTarget = event.target.closest("button, .Icon");
+    if (HoverTarget) {
+        HoverTarget.classList.add("Hovering");
+    }
+});
+
+document.addEventListener("pointerout", (event) => {
+    const HoverTarget = event.target.closest("button, .Icon");
+    if (HoverTarget) {
+        HoverTarget.classList.remove("Hovering");
+    }
+});

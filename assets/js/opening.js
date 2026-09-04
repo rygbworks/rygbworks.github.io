@@ -58,6 +58,27 @@ function ForwardKeyEventToGame(event) {
 window.addEventListener("keydown", ForwardKeyEventToGame);
 window.addEventListener("keyup", ForwardKeyEventToGame);
 
+// マウス/トラックパッド操作時のみボタン・アイコンをホバー状態にする
+// (@media(hover:hover)は「そのデバイスがホバー可能か」という機種レベルの判定しかできず、
+//  Surfaceのようなタッチ+トラックパッド両対応デバイスでは常にtrueになってしまうため、
+//  実際の操作がタッチかどうかをJSで判定する)
+document.addEventListener("pointerover", (event) => {
+    if (event.pointerType === "touch") {
+        return;
+    }
+    const HoverTarget = event.target.closest("button, .Icon");
+    if (HoverTarget) {
+        HoverTarget.classList.add("Hovering");
+    }
+});
+
+document.addEventListener("pointerout", (event) => {
+    const HoverTarget = event.target.closest("button, .Icon");
+    if (HoverTarget) {
+        HoverTarget.classList.remove("Hovering");
+    }
+});
+
 // オプションボタンのアニメーション情報を定義　アニメーションする
 const KeyframesButton = {
     scale: [0, 1],

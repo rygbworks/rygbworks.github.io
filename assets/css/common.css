@@ -106,7 +106,7 @@ button {
     transition-property: scale;
     transition-duration: 200ms;
 }
-button:hover {
+button.Hovering {
     background-blend-mode: multiply;
     scale: 1.1;
 }
@@ -319,7 +319,7 @@ nav#HomeMenu.OnClickOption {
     transition: all 200ms;
     animation: Icon 2500ms linear infinite;
 }
-#HomeMenu #Palette figure .Icon:hover {
+#HomeMenu #Palette figure .Icon.Hovering {
     scale: 1.1;
 }
 #HomeMenu #Palette figure .Icon:active {
