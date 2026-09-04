@@ -64,6 +64,19 @@ async function SetUpEffectFlickChicken() {
 // 効果音の準備
 const ManagerAudio = new AudioContext();
 
+// ブラウザ(特にXアプリ内蔵のAndroid WebView)の自動再生ロック解除は、
+// どの種類のジェスチャーを合図とみなすか一定しないため、
+// 複数の種類のイベントすべてで解除を試みる
+function TryResumeManagerAudio() {
+    if (ManagerAudio.state !== "running") {
+        ManagerAudio.resume();
+    }
+}
+
+for (const EventType of ["pointerdown", "pointerup", "touchstart", "touchend", "mousedown", "mouseup", "click", "keydown"]) {
+    document.addEventListener(EventType, TryResumeManagerAudio);
+}
+
 let SoundFlickChicken, SoundSourceFlickChicken;
 
 let SoundJumpChicken, SoundSourceJumpChicken;
