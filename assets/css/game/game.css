@@ -8,8 +8,8 @@
 
 #Contents {
     /* ニワトリ・カニがFooterにわずかにめり込むよう、実測した高さに0.3vw足す */
-    /* (game.cssはJS実行後にしか読み込まれないため、--MeasuredContentsHeightは必ず設定済み) */
-    height: calc(var(--MeasuredContentsHeight) + 0.3vw);
+    /* (game.cssはJS実行後にしか読み込まれないため、--MeasuredMiddleHeightは必ず設定済み) */
+    height: calc(var(--MeasuredMiddleHeight) + 0.3vw);
 }
 
 #GameArea {

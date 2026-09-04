@@ -10,16 +10,18 @@ const Footer = document.querySelector("footer");
 // HTML要素を取得
 const Contents = document.querySelector("#Contents");
 
-// #Contentsの土台となる位置・高さを、Header/Footerの実際の描画位置から測定する
+// Header/Footerに挟まれた領域(#Contents・#HomeMenuが占めるべき範囲)の位置・高さを、
+// Header/Footerの実際の描画位置から測定する
 // (このWebViewではsvh/innerHeightが実際の可視領域より大きい値を返すことがあるため、
 //  top:0/bottom:0で正しく描画されるHeader/Footer自身の位置を基準にする)
+// :rootに設定することで、#Contents・#HomeMenuの両方から参照できるようにする
 function UpdateContentsPosition() {
 
     const HeaderBottom = Header.getBoundingClientRect().bottom;
     const FooterTop = Footer.getBoundingClientRect().top;
 
-    Contents.style.setProperty("--MeasuredContentsTop", `${HeaderBottom}px`);
-    Contents.style.setProperty("--MeasuredContentsHeight", `${FooterTop - HeaderBottom}px`);
+    document.documentElement.style.setProperty("--MeasuredMiddleTop", `${HeaderBottom}px`);
+    document.documentElement.style.setProperty("--MeasuredMiddleHeight", `${FooterTop - HeaderBottom}px`);
 
 }
 

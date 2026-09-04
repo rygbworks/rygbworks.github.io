@@ -82,9 +82,9 @@ footer {
     width: 100%;
     /* JS(UpdateContentsPosition)がHeader/Footerの実測位置から--Measured*を設定する。
        未設定時はsvhベースの値にフォールバックする */
-    top: var(--MeasuredContentsTop, var(--HeightHeaderFooter));
+    top: var(--MeasuredMiddleTop, var(--HeightHeaderFooter));
     bottom: var(--HeightHeaderFooter);
-    height: var(--MeasuredContentsHeight, auto);
+    height: var(--MeasuredMiddleHeight, auto);
     overflow: hidden;
 }
 
@@ -144,7 +144,9 @@ nav#HomeMenu {
     background-color: #999;
     position: fixed;
     width: 100%;
-    top: var(--HeightHeaderFooter); bottom: var(--HeightHeaderFooter);
+    top: var(--MeasuredMiddleTop, var(--HeightHeaderFooter));
+    bottom: var(--HeightHeaderFooter);
+    height: var(--MeasuredMiddleHeight, auto);
     opacity: 0;
     pointer-events: none;
     overflow-y: scroll;
