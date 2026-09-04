@@ -109,7 +109,7 @@ button:hover {
 button.ButtonSquare {
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
-    box-shadow: 0 0.5svh 0.5svh #000;
+    box-shadow: 0 0.5svh 0.5svh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
