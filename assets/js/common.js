@@ -7,6 +7,24 @@ const Body = document.querySelector("body");
 const Header = document.querySelector("header");
 const Footer = document.querySelector("footer");
 
+// HTML要素を取得
+const Contents = document.querySelector("#Contents");
+
+// #Contentsの土台となる位置・高さを、Header/Footerの実際の描画位置から測定する
+// (このWebViewではsvh/innerHeightが実際の可視領域より大きい値を返すことがあるため、
+//  top:0/bottom:0で正しく描画されるHeader/Footer自身の位置を基準にする)
+function UpdateContentsPosition() {
+
+    const HeaderBottom = Header.getBoundingClientRect().bottom;
+    const FooterTop = Footer.getBoundingClientRect().top;
+
+    Contents.style.setProperty("--MeasuredContentsTop", `${HeaderBottom}px`);
+    Contents.style.setProperty("--MeasuredContentsHeight", `${FooterTop - HeaderBottom}px`);
+
+}
+
+UpdateContentsPosition();
+
 // デバッグ用: 実機での実測値を#testに表示する(Header/#Contents/Footerの位置関係の調査用)
 function UpdateDebugOverlay() {
 
@@ -20,7 +38,7 @@ function UpdateDebugOverlay() {
     const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
 
     TestElement.textContent = [
-        `ver.0.17`,
+        `ver.0.18`,
         `UA: ${navigator.userAgent}`,
         `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
         `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
@@ -40,8 +58,7 @@ if (window.visualViewport) {
 }
 window.setInterval(UpdateDebugOverlay, 1000);
 
-// HTML要素を取得し、ゲーム画面の幅や高さからアスペクト比を計算する
-const Contents = document.querySelector("#Contents");
+// ゲーム画面の幅や高さからアスペクト比を計算する
 const StyleContents = getComputedStyle(Contents);
 
 const ErrorAspectRatio = document.querySelector("#ErrorAspectRatio")
@@ -181,7 +198,9 @@ Contents.addEventListener("contextmenu", (event) => {
 });
 
 // ウィンドウの変形によって変化する情報を更新　場合によってはリロード
-window.addEventListener("resize", () => {
+function UpdateContentsMetrics() {
+
+    UpdateContentsPosition();
 
     WidthContents = Number.parseFloat(StyleContents.getPropertyValue("width"));
     HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
@@ -191,4 +210,11 @@ window.addEventListener("resize", () => {
         window.location.reload();
     }
 
-});
+}
+
+window.addEventListener("resize", UpdateContentsMetrics);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", UpdateContentsMetrics);
+}
+// resize/visualViewport resizeイベントが発火しないアプリ内ブラウザ対策として定期的にも更新する
+window.setInterval(UpdateContentsMetrics, 500);
