@@ -30,6 +30,7 @@
 * {
     background-color: transparent;
     padding: 0; margin: 0; border: 0 none transparent;
+    forced-color-adjust: none;
 }
 
 noscript {
@@ -100,8 +101,6 @@ button:hover {
 }
 
 button.ButtonSquare {
-    /* Androidの強制的な色調整(反転)からこのボタンを除外する */
-    forced-color-adjust: none;
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
     box-shadow: 0 0.5svh 0.5svh;
