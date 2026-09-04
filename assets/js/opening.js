@@ -21,6 +21,25 @@ ButtonHelp.addEventListener("click", () => {
     Footer.classList.toggle("OnClickHelp");
 });
 
+// ガイドの切り替え(タップorキーボード)
+// (ゲーム本体はiframe内で動いており、iframeの外(ヘッダー・フッターなど)で発生した
+//  pointerdown/keydownはiframe内のリスナーでは検知できないため、親ページ側でも同じ判定を行う)
+window.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "touch") {
+        Footer.classList.add("Tap");
+        Footer.classList.remove("Keyboard");
+    }
+    if (event.pointerType === "mouse") {
+        Footer.classList.remove("Tap");
+        Footer.classList.add("Keyboard");
+    }
+}, { passive: true });
+
+window.addEventListener("keydown", () => {
+    Footer.classList.add("Keyboard");
+    Footer.classList.remove("Tap");
+});
+
 // オプションボタンのアニメーション情報を定義　アニメーションする
 const KeyframesButton = {
     scale: [0, 1],
