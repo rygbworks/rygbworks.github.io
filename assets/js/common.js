@@ -38,7 +38,7 @@ function UpdateDebugOverlay() {
     const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
 
     TestElement.textContent = [
-        `ver.0.19`,
+        `ver.0.20`,
         `UA: ${navigator.userAgent}`,
         `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
         `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
@@ -176,50 +176,36 @@ function CheckMode() {
 
 }
 
-// #Contentsのアスペクト比の測定が安定するまで待ってから、ゲームモードを決定・読み込みする
-// (Xアプリ内ブラウザでは起動直後の1回目の測定が実際の表示領域と異なり、
-//  その後一方向に修正されることがあるため、決定を急がない)
+// #Contentsのアスペクト比の測定を、Xアプリ内ブラウザの領域補正が終わるまで一定時間待ってから確定する
+// (安定検知(数フレーム一致)では、補正がそれより遅れて起きた場合に誤判定するため、
+//  明示的に十分な時間を待つ方式にする)
 let Mode;
 
-function DecideModeWhenStable(AttemptsLeft) {
+setTimeout(() => {
 
     UpdateContentsPosition();
 
-    const NewWidthContents = Number.parseFloat(StyleContents.getPropertyValue("width"));
-    const NewHeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
-    const NewAspectRatio = NewWidthContents / NewHeightContents;
-    const IsStable = (NewAspectRatio === AspectRatio);
+    WidthContents = Number.parseFloat(StyleContents.getPropertyValue("width"));
+    HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
+    AspectRatio = WidthContents / HeightContents;
 
-    WidthContents = NewWidthContents;
-    HeightContents = NewHeightContents;
-    AspectRatio = NewAspectRatio;
+    Mode = CheckMode();
 
-    if (IsStable || AttemptsLeft <= 0) {
+    switch (Mode) {
 
-        Mode = CheckMode();
+        case "ModeHorizontal":
+            LoadModeHorizontal();
+            break;
 
-        switch (Mode) {
-
-            case "ModeHorizontal":
-                LoadModeHorizontal();
-                break;
-
-            case "ModeVertical":
-                LoadModeVertical();
-                break;
-            case "Error":
-                ErrorAspectRatio.classList.add("Display");
-
-        }
+        case "ModeVertical":
+            LoadModeVertical();
+            break;
+        case "Error":
+            ErrorAspectRatio.classList.add("Display");
 
     }
-    else {
-        requestAnimationFrame(() => DecideModeWhenStable(AttemptsLeft - 1));
-    }
 
-}
-
-requestAnimationFrame(() => DecideModeWhenStable(30));
+}, 1000);
 
 // コンテンツ画面領域の余計なクリックアクションを無効化
 Contents.addEventListener("contextmenu", (event) => {
