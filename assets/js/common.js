@@ -7,6 +7,39 @@ const Body = document.querySelector("body");
 const Header = document.querySelector("header");
 const Footer = document.querySelector("footer");
 
+// デバッグ用: 実機での実測値を#testに表示する(Header/#Contents/Footerの位置関係の調査用)
+function UpdateDebugOverlay() {
+
+    const TestElement = document.querySelector("#test");
+    if (!TestElement) {
+        return;
+    }
+
+    const HeaderRect = document.querySelector("header").getBoundingClientRect();
+    const FooterRect = document.querySelector("footer").getBoundingClientRect();
+    const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
+
+    TestElement.textContent = [
+        `ver.0.17`,
+        `UA: ${navigator.userAgent}`,
+        `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
+        `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
+        `header:   top=${HeaderRect.top.toFixed(1)} bottom=${HeaderRect.bottom.toFixed(1)} h=${HeaderRect.height.toFixed(1)}`,
+        `Contents: top=${ContentsRect.top.toFixed(1)} bottom=${ContentsRect.bottom.toFixed(1)} h=${ContentsRect.height.toFixed(1)}`,
+        `footer:   top=${FooterRect.top.toFixed(1)} bottom=${FooterRect.bottom.toFixed(1)} h=${FooterRect.height.toFixed(1)}`,
+        `gap Header-Contents: ${(ContentsRect.top - HeaderRect.bottom).toFixed(1)}`,
+        `gap Contents-Footer: ${(FooterRect.top - ContentsRect.bottom).toFixed(1)}`,
+    ].join("\n");
+
+}
+
+UpdateDebugOverlay();
+window.addEventListener("resize", UpdateDebugOverlay);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", UpdateDebugOverlay);
+}
+window.setInterval(UpdateDebugOverlay, 1000);
+
 // HTML要素を取得し、ゲーム画面の幅や高さからアスペクト比を計算する
 const Contents = document.querySelector("#Contents");
 const StyleContents = getComputedStyle(Contents);
