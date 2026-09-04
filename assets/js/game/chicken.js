@@ -15,7 +15,7 @@ let xChicken, yChicken, WidthChicken;
 
 // ロード後ニワトリが上から落ちてくるときのアニメーション情報を定義
 const KeyframesChickenAppear = {
-    translate: ["0 -100vh", 0],
+    translate: ["0 -120vh", 0],
 };
 const OptionsChickenAppear = {
     duration: 1000,
@@ -148,6 +148,7 @@ function DetectCollisionChicken() {
 
 // ロード後ニワトリが上から落ちてくるときのアニメーションをする
 function StartChickenAppearAfterLoad() {
+    Chicken.style.visibility = "visible";
     Chicken.animate(KeyframesChickenAppear, OptionsChickenAppear);
 }
 

@@ -58,6 +58,7 @@
     background-size: contain;
     background-position: bottom;
     z-index: 1;
+    visibility: hidden;
     transition-property: scale;
     transition-duration: 150ms;
 }
