@@ -109,8 +109,8 @@ button:hover, .ButtonSquare:hover {
 }
 
 #ButtonOption {
-    position: absolute;
-    right: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
+    position: fixed;
+    right: var(--MarginEdgeButton); top: calc(var(--HeightHeaderFooter) / 2 - var(--WidthButtonSquare) / 2);
     background-image: url(/assets/image/button/button-option.webp), url(/assets/image/button/button-option-push.webp);
     z-index: 91;
 }
@@ -120,9 +120,10 @@ button:hover, .ButtonSquare:hover {
 
 #ButtonHelp {
     display: none;
-    position: absolute;
-    left: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
+    position: fixed;
+    left: var(--MarginEdgeButton); bottom: calc(var(--HeightHeaderFooter) / 2 - var(--WidthButtonSquare) / 2);
     background-image: url(/assets/image/button/button-help.webp), url(/assets/image/button/button-help-push.webp);
+    z-index: 91;
 }
 #ButtonHelp:active {
     background-image: url(/assets/image/button/button-help-push.webp);
