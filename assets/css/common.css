@@ -25,12 +25,15 @@
 #test {
     position: absolute;
     top: 10svh; left: 50px;
+    color: #000;
 }
 
 * {
     background-color: transparent;
     padding: 0; margin: 0; border: 0 none transparent;
     forced-color-adjust: none;
+    /* サイト全体をAndroidの強制ダーク変換の対象から除外する(このサイトはprefers-color-schemeで配色を変えていないため) */
+    color-scheme: dark;
 }
 
 noscript {
@@ -101,8 +104,6 @@ button:hover {
 }
 
 button.ButtonSquare {
-    /* color-scheme:light は逆に強制ダーク変換の対象になるとの情報があるため、darkを指定してみる */
-    color-scheme: dark;
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
     box-shadow: 0 0.5svh 0.5svh #000;
