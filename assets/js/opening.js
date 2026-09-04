@@ -14,6 +14,13 @@ const OptionsHeaderFooter = {
 const ButtonOption = document.querySelector("#ButtonOption");
 const ButtonHelp = document.querySelector("#ButtonHelp");
 
+// ヘルプボタンのクリックでフッターに「OnClickHelp」クラスを追加除去する
+// (ゲームのモードに依存しない処理のため、iframe(ゲーム本体)が何度作り直されても
+//  重複登録されないよう、モードに関係なく1回だけ実行されるここに置く)
+ButtonHelp.addEventListener("click", () => {
+    Footer.classList.toggle("OnClickHelp");
+});
+
 // オプションボタンのアニメーション情報を定義　アニメーションする
 const KeyframesButton = {
     scale: [0, 1],

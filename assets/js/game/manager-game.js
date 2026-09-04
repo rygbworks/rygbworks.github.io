@@ -27,13 +27,6 @@ window.addEventListener("keydown", () => {
     Footer.classList.remove("Tap");
 });
 
-ButtonHelp.addEventListener("click", () => {
-
-    // クリックするたびに、フッターに「OnClickHelp」クラスを追加除去
-    Footer.classList.toggle("OnClickHelp");
-
-});
-
 // ゲームの状況リスト
 const ObjectStateGame = {
     BeforeStart: "BeforeStart",

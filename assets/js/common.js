@@ -38,7 +38,7 @@ function UpdateDebugOverlay() {
     const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
 
     TestElement.textContent = [
-        `ver.0.22`,
+        `ver.0.23`,
         `UA: ${navigator.userAgent}`,
         `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
         `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
@@ -67,93 +67,47 @@ let WidthContents = Number.parseFloat(StyleContents.getPropertyValue("width"));
 let HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
 let AspectRatio = WidthContents / HeightContents;
 
-// 横画面ゲーム用のファイルをロード
-function LoadModeHorizontal() {
+// ゲームモードを実際に反映する(reloadを使わず、iframeの差し替えで実現する)
+let CurrentIframe = null;
+let LinkGameCss = null;
 
-    const CSS_Game = document.createElement("link");
-    CSS_Game.rel = "stylesheet";
-    CSS_Game.href = "/assets/css/game/game.css";
-    document.head.append(CSS_Game);
+function ApplyMode(NewMode) {
 
-    const CSS_GameHorizontal = document.createElement("link");
-    CSS_GameHorizontal.rel = "stylesheet";
-    CSS_GameHorizontal.href = "/assets/css/game/game-horizontal.css";
-    document.head.append(CSS_GameHorizontal);
+    if (NewMode === Mode) {
+        return;
+    }
 
-    const JS_GameManager = document.createElement("script");
-    JS_GameManager.src = "/assets/js/game/manager-game.js";
-    JS_GameManager.async = false;
-    document.head.append(JS_GameManager);
+    Mode = NewMode;
 
-    const JS_Countdown = document.createElement("script");
-    JS_Countdown.src = "/assets/js/game/countdown.js";
-    JS_Countdown.async = false;
-    document.head.append(JS_Countdown);
+    if (CurrentIframe) {
+        CurrentIframe.remove();
+        CurrentIframe = null;
+    }
 
-    const JS_Chicken = document.createElement("script");
-    JS_Chicken.src = "/assets/js/game/chicken.js";
-    JS_Chicken.async = false;
-    document.head.append(JS_Chicken);
+    if (NewMode === "Error") {
+        ButtonHelp.style.display = "none";
+        ErrorAspectRatio.classList.add("Display");
+        return;
+    }
 
-    const JS_Crab = document.createElement("script");
-    JS_Crab.src = "/assets/js/game/crab.js";
-    JS_Crab.async = false;
-    document.head.append(JS_Crab);
+    ErrorAspectRatio.classList.remove("Display");
+    ButtonHelp.style.removeProperty("display");
 
-    const JS_ChickenHorizontal = document.createElement("script");
-    JS_ChickenHorizontal.src = "/assets/js/game/chicken-horizontal.js";
-    JS_ChickenHorizontal.async = false;
-    document.head.append(JS_ChickenHorizontal);
+    if (!LinkGameCss) {
+        LinkGameCss = document.createElement("link");
+        LinkGameCss.rel = "stylesheet";
+        LinkGameCss.href = "/assets/css/game/game.css";
+        document.head.append(LinkGameCss);
+    }
 
-    const JS_CrabHorizontal = document.createElement("script");
-    JS_CrabHorizontal.src = "/assets/js/game/crab-horizontal.js";
-    JS_CrabHorizontal.async = false;
-    document.head.append(JS_CrabHorizontal);
+    CurrentIframe = document.createElement("iframe");
+    CurrentIframe.style.cssText = "display:block; width:100%; height:100%; border:none; background:transparent;";
+    CurrentIframe.src = (NewMode === "ModeHorizontal") ? "/assets/game-horizontal.html" : "/assets/game-vertical.html";
+    CurrentIframe.addEventListener("load", () => {
+        CurrentIframe.contentWindow.focus();
+    });
 
-}
-
-// 縦画面ゲーム用のファイルをロード
-function LoadModeVertical() {
-
-    const CSS_Game = document.createElement("link");
-    CSS_Game.rel = "stylesheet";
-    CSS_Game.href = "/assets/css/game/game.css";
-    document.head.append(CSS_Game);
-    
-    const CSS_GameVertical = document.createElement("link");
-    CSS_GameVertical.rel = "stylesheet";
-    CSS_GameVertical.href = "/assets/css/game/game-vertical.css";
-    document.head.append(CSS_GameVertical);
-
-    const JS_GameManager = document.createElement("script");
-    JS_GameManager.src = "/assets/js/game/manager-game.js";
-    JS_GameManager.async = false;
-    document.head.append(JS_GameManager);
-
-    const JS_Countdown = document.createElement("script");
-    JS_Countdown.src = "/assets/js/game/countdown.js";
-    JS_Countdown.async = false;
-    document.head.append(JS_Countdown);
-
-    const JS_Chicken = document.createElement("script");
-    JS_Chicken.src = "/assets/js/game/chicken.js";
-    JS_Chicken.async = false;
-    document.head.append(JS_Chicken);
-
-    const JS_Crab = document.createElement("script");
-    JS_Crab.src = "/assets/js/game/crab.js";
-    JS_Crab.async = false;
-    document.head.append(JS_Crab);
-
-    const JS_ChickenVertical = document.createElement("script");
-    JS_ChickenVertical.src = "/assets/js/game/chicken-vertical.js";
-    JS_ChickenVertical.async = false;
-    document.head.append(JS_ChickenVertical);
-
-    const JS_CrabVertical = document.createElement("script");
-    JS_CrabVertical.src = "/assets/js/game/crab-vertical.js";
-    JS_CrabVertical.async = false;
-    document.head.append(JS_CrabVertical);
+    Contents.append(CurrentIframe);
 
 }
 
@@ -176,9 +130,9 @@ function CheckMode() {
 
 }
 
-// #Contentsのアスペクト比の測定を、Xアプリ内ブラウザの領域補正が終わるまで一定時間待ってから確定する
-// (安定検知(数フレーム一致)では、補正がそれより遅れて起きた場合に誤判定するため、
-//  明示的に十分な時間を待つ方式にする)
+// #Contentsのアスペクト比を初回測定し、モードを決定する
+// (誤った初回判定は、後段のUpdateContentsMetricsがreloadなしで訂正するため、
+//  ここでは長く待たず、速い推測にとどめる)
 let Mode;
 
 setTimeout(() => {
@@ -189,30 +143,18 @@ setTimeout(() => {
     HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
     AspectRatio = WidthContents / HeightContents;
 
-    Mode = CheckMode();
+    ApplyMode(CheckMode());
 
-    switch (Mode) {
-
-        case "ModeHorizontal":
-            LoadModeHorizontal();
-            break;
-
-        case "ModeVertical":
-            LoadModeVertical();
-            break;
-        case "Error":
-            ErrorAspectRatio.classList.add("Display");
-
-    }
-
-}, 3000);
+}, 500);
 
 // コンテンツ画面領域の余計なクリックアクションを無効化
 Contents.addEventListener("contextmenu", (event) => {
     event.preventDefault();
 });
 
-// ウィンドウの変形によって変化する情報を更新　場合によってはリロード
+// ウィンドウの変形によって変化する情報を更新　場合によってはモードを切り替える(reloadはしない)
+let TimeoutMismatchDebounce;
+
 function UpdateContentsMetrics() {
 
     UpdateContentsPosition();
@@ -221,12 +163,17 @@ function UpdateContentsMetrics() {
     HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));
     AspectRatio = WidthContents / HeightContents;
 
-    // Modeがまだ確定していない(安定待ちの)間は判定しない
-    if (Mode !== undefined && Mode !== CheckMode()) {
-
-        window.location.reload();
-
+    // Modeがまだ確定していない(初回決定待ちの)間は判定しない
+    if (Mode === undefined || CheckMode() === Mode) {
+        clearTimeout(TimeoutMismatchDebounce);
+        return;
     }
+
+    // 一瞬だけ矛盾した値を読んだだけで即座に切り替えないよう、少し待ってから確定する
+    clearTimeout(TimeoutMismatchDebounce);
+    TimeoutMismatchDebounce = setTimeout(() => {
+        ApplyMode(CheckMode());
+    }, 300);
 
 }
 
