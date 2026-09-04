@@ -25,6 +25,7 @@
 #test {
     position: fixed;
     top: 10svh; left: 30px;
+    z-index: 100;
 }
 
 * {
