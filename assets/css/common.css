@@ -162,27 +162,32 @@ nav#HomeMenu.OnClickOption {
 .MenuCrab {
     position: fixed;
     width: var(--WidthMenuCrab); aspect-ratio: 1 / 1;
-    top: 100%;
+    top: calc(var(--MeasuredFooterTop, calc(100% - var(--HeightHeaderFooter))) - var(--WidthMenuCrab));
+    translate: var(--TranslateXClosed, 0) 200%;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: bottom;
-    transition: all var(--DurationMenuToggle);
+    animation: MenuCrabExit var(--DurationMenuToggle) ease-in forwards;
     z-index: 81;
 }
 #MenuCrabR.MenuCrab {
-    right: var(--OffsetMenuCrabNear);
+    --TranslateXClosed: calc(0.5 * var(--WidthMenuCrab) - 20dvw);
+    right: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab));
     background-image: url(/assets/image/character/anime-crab-r.webp);
 }
 #MenuCrabB.MenuCrab {
-    left: var(--OffsetMenuCrabNear);
+    --TranslateXClosed: calc(20dvw - 0.5 * var(--WidthMenuCrab));
+    left: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab));
     background-image: url(/assets/image/character/anime-crab-b.webp);
 }
 #MenuCrabY.MenuCrab {
-    right: var(--OffsetMenuCrabFar);
+    --TranslateXClosed: calc(1.5 * var(--WidthMenuCrab) - 50dvw);
+    right: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab) * 2);
     background-image: url(/assets/image/character/anime-crab-y.webp);
 }
 #MenuCrabG.MenuCrab {
-    left: var(--OffsetMenuCrabFar);
+    --TranslateXClosed: calc(50dvw - 1.5 * var(--WidthMenuCrab));
+    left: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab) * 2);
     background-image: url(/assets/image/character/anime-crab-g.webp);
 }
 #MenuCrabP.MenuCrab {
@@ -190,27 +195,42 @@ nav#HomeMenu.OnClickOption {
     background-image: url(/assets/image/character/anime-crab-p.webp);
 }
 
-.MenuCrab.OnClickOption {
-    top: calc(var(--MeasuredFooterTop, calc(100% - var(--HeightHeaderFooter))) - var(--WidthMenuCrab));
+@keyframes MenuCrabEnter {
+    from {
+        translate: var(--TranslateXClosed, 0) 200%;
+    }
+    to {
+        translate: 0;
+    }
 }
+@keyframes MenuCrabExit {
+    from {
+        translate: 0;
+    }
+    to {
+        translate: var(--TranslateXClosed, 0) 200%;
+    }
+}
+
 #MenuCrabR.MenuCrab.OnClickOption {
-    right: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab));
-    animation: MenuCrabR var(--DurationMenuCrabBounce) ease-in-out infinite;
+    animation: MenuCrabEnter var(--DurationMenuToggle) ease-out forwards,
+               MenuCrabR var(--DurationMenuCrabBounce) var(--DurationMenuToggle) ease-in-out infinite;
 }
 #MenuCrabB.MenuCrab.OnClickOption {
-    left: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab));
-    animation: MenuCrabB var(--DurationMenuCrabBounce) ease-in-out infinite;
+    animation: MenuCrabEnter var(--DurationMenuToggle) ease-out forwards,
+               MenuCrabB var(--DurationMenuCrabBounce) var(--DurationMenuToggle) ease-in-out infinite;
 }
 #MenuCrabY.MenuCrab.OnClickOption {
-    right: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab) * 2);
-    animation: MenuCrabY var(--DurationMenuCrabBounce) ease-in-out infinite;
+    animation: MenuCrabEnter var(--DurationMenuToggle) ease-out forwards,
+               MenuCrabY var(--DurationMenuCrabBounce) var(--DurationMenuToggle) ease-in-out infinite;
 }
 #MenuCrabG.MenuCrab.OnClickOption {
-    left: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab) * 2);
-    animation: MenuCrabG var(--DurationMenuCrabBounce) ease-in-out infinite;
+    animation: MenuCrabEnter var(--DurationMenuToggle) ease-out forwards,
+               MenuCrabG var(--DurationMenuCrabBounce) var(--DurationMenuToggle) ease-in-out infinite;
 }
 #MenuCrabP.MenuCrab.OnClickOption {
-    animation: MenuCrabP var(--DurationMenuCrabBounce) ease-in-out infinite;
+    animation: MenuCrabEnter var(--DurationMenuToggle) ease-out forwards,
+               MenuCrabP var(--DurationMenuCrabBounce) var(--DurationMenuToggle) ease-in-out infinite;
 }
 @keyframes MenuCrabY {
     0% {
