@@ -105,7 +105,7 @@ button.ButtonSquare {
     color-scheme: dark;
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
-    box-shadow: 0 0.5svh 0.5svh;
+    box-shadow: 0 0.5svh 0.5svh #000;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
