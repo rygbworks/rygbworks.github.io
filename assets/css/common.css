@@ -10,7 +10,7 @@
 
 :root {
     --HeightHeaderFooter: 10svh;
-    --WidthButtonSquare: 7svh;
+    --WidthButtonSquare: 160px; /* 検証のため、一時的にButtonRetryと同じ固定pxサイズにしている(元は7svh) */
     --MarginEdgeButton: 10px;
     --MaxWidthContentsFooter: calc(100svw - var(--WidthButtonSquare) * 2 - var(--MarginEdgeButton) * 2);
     --DurationMenuToggle: 500ms;
@@ -100,9 +100,10 @@ button:hover {
 }
 
 button.ButtonSquare {
-    width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
-    border-radius: 26%;
-    box-shadow: 0 0.5svh 0.5svh;
+    /* 検証のため、一時的にButtonRetryと同じ縦横比・角丸の計算式にしている(元は正方形・26%) */
+    width: var(--WidthButtonSquare); aspect-ratio: 4 / 1;
+    border-radius: calc(var(--WidthButtonSquare) / 14);
+    box-shadow: 0 calc(var(--WidthButtonSquare) / 50) calc(var(--WidthButtonSquare) / 50);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -110,7 +111,7 @@ button.ButtonSquare {
 
 #ButtonOption {
     position: absolute;
-    right: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
+    right: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 8);
     background-image: url(/assets/image/button/button-option.webp), url(/assets/image/button/button-option-push.webp);
     z-index: 91;
 }
@@ -121,7 +122,7 @@ button.ButtonSquare {
 #ButtonHelp {
     display: none;
     position: absolute;
-    left: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
+    left: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 8);
     background-image: url(/assets/image/button/button-help.webp), url(/assets/image/button/button-help-push.webp);
 }
 #ButtonHelp:active {
