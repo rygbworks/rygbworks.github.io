@@ -26,6 +26,7 @@
     position: fixed;
     top: 10svh; left: 10px;
     z-index: 100;
+    display: none;
 }
 
 * {
