@@ -20,6 +20,14 @@
     container-type: size;
 }
 
+#GameFrame {
+    /* 親ページの#Contents内に配置される、ゲーム本体のiframe */
+    display: block;
+    width: 100%; height: 100%;
+    border: none;
+    background: transparent;
+}
+
 #ErrorAspectRatio {
     display: none;
 }

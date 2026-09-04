@@ -55,6 +55,9 @@ function ApplyMode(NewMode) {
     if (NewMode === "Error") {
         ButtonHelp.style.display = "none";
         ErrorAspectRatio.classList.add("Display");
+        if (LinkGameModeCss) {
+            LinkGameModeCss.disabled = true;
+        }
         return;
     }
 
@@ -73,12 +76,15 @@ function ApplyMode(NewMode) {
         LinkGameModeCss.rel = "stylesheet";
         document.head.append(LinkGameModeCss);
     }
+    LinkGameModeCss.disabled = false;
     LinkGameModeCss.href = (NewMode === "ModeHorizontal")
         ? "/assets/css/game/game-horizontal.css"
         : "/assets/css/game/game-vertical.css";
 
     CurrentIframe = document.createElement("iframe");
-    CurrentIframe.style.cssText = "display:block; width:100%; height:100%; border:none; background:transparent;";
+    const IdGameFrame = document.createAttribute("id");
+    IdGameFrame.value = "GameFrame";
+    CurrentIframe.setAttributeNode(IdGameFrame);
     CurrentIframe.src = (NewMode === "ModeHorizontal") ? "/assets/game-horizontal.html" : "/assets/game-vertical.html";
     CurrentIframe.addEventListener("load", () => {
         CurrentIframe.contentWindow.focus();
