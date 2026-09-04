@@ -19,8 +19,8 @@
 #CountText {
     color: #fff;
     position: absolute;
-    width: 50dvw;
-    left: 25dvw;
+    width: 50cqw;
+    left: 25cqw;
     line-height: var(--SizeFontCountText);
     font-size: var(--SizeFontCountText);
 }

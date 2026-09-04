@@ -38,7 +38,7 @@ function UpdateDebugOverlay() {
     const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
 
     TestElement.textContent = [
-        `ver.0.23`,
+        `ver.0.24`,
         `UA: ${navigator.userAgent}`,
         `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
         `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
@@ -70,6 +70,7 @@ let AspectRatio = WidthContents / HeightContents;
 // ゲームモードを実際に反映する(reloadを使わず、iframeの差し替えで実現する)
 let CurrentIframe = null;
 let LinkGameCss = null;
+let LinkGameModeCss = null;
 
 function ApplyMode(NewMode) {
 
@@ -99,6 +100,15 @@ function ApplyMode(NewMode) {
         LinkGameCss.href = "/assets/css/game/game.css";
         document.head.append(LinkGameCss);
     }
+
+    if (!LinkGameModeCss) {
+        LinkGameModeCss = document.createElement("link");
+        LinkGameModeCss.rel = "stylesheet";
+        document.head.append(LinkGameModeCss);
+    }
+    LinkGameModeCss.href = (NewMode === "ModeHorizontal")
+        ? "/assets/css/game/game-horizontal.css"
+        : "/assets/css/game/game-vertical.css";
 
     CurrentIframe = document.createElement("iframe");
     CurrentIframe.style.cssText = "display:block; width:100%; height:100%; border:none; background:transparent;";

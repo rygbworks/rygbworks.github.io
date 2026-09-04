@@ -4,11 +4,11 @@
 
 :root {
     --AspectRatioGuideHorizontal: calc(2160 / 120);
-    --SizeFontCountText: 8dvw;
+    --SizeFontCountText: 8cqw;
     --WidthButton: 200px;
-    --WidthChicken: 8dvw;
-    --WidthCrab: 8dvw;
-    --WidthEffectFlickChicken: 12dvw;
+    --WidthChicken: 8cqw;
+    --WidthCrab: 8cqw;
+    --WidthEffectFlickChicken: 12cqw;
 }
 
 footer.Tap.En.OnClickHelp:not(.OnClickOption) {
