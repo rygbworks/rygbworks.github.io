@@ -90,16 +90,16 @@ footer {
     z-index: 99;
 }
 
-button, .ButtonSquare {
+button {
     transition-property: scale;
     transition-duration: 200ms;
 }
-button:hover, .ButtonSquare:hover {
+button:hover {
     background-blend-mode: multiply;
     scale: 1.1;
 }
 
-.ButtonSquare {
+button.ButtonSquare {
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
     box-shadow: 0 0.5svh 0.5svh;
@@ -109,10 +109,8 @@ button:hover, .ButtonSquare:hover {
 }
 
 #ButtonOption {
-    /* 検証のため、わざとHeader/Footerの帯の範囲外(画面中央付近)に配置している */
-    position: fixed;
-    left: 50%; top: 45%;
-    translate: -50% -50%;
+    position: absolute;
+    right: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
     background-image: url(/assets/image/button/button-option.webp), url(/assets/image/button/button-option-push.webp);
     z-index: 91;
 }
@@ -121,13 +119,10 @@ button:hover, .ButtonSquare:hover {
 }
 
 #ButtonHelp {
-    /* 検証のため、わざとHeader/Footerの帯の範囲外(画面中央付近)に配置している */
     display: none;
-    position: fixed;
-    left: 50%; top: 55%;
-    translate: -50% -50%;
+    position: absolute;
+    left: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
     background-image: url(/assets/image/button/button-help.webp), url(/assets/image/button/button-help-push.webp);
-    z-index: 91;
 }
 #ButtonHelp:active {
     background-image: url(/assets/image/button/button-help-push.webp);
