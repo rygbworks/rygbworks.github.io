@@ -22,6 +22,7 @@ function UpdateContentsPosition() {
 
     document.documentElement.style.setProperty("--MeasuredMiddleTop", `${HeaderBottom}px`);
     document.documentElement.style.setProperty("--MeasuredMiddleHeight", `${FooterTop - HeaderBottom}px`);
+    document.documentElement.style.setProperty("--MeasuredFooterTop", `${FooterTop}px`);
 
 }
 

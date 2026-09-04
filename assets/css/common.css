@@ -191,7 +191,7 @@ nav#HomeMenu.OnClickOption {
 }
 
 .MenuCrab.OnClickOption {
-    top: calc(100% - var(--WidthMenuCrab) - var(--HeightHeaderFooter));
+    top: calc(var(--MeasuredFooterTop, calc(100% - var(--HeightHeaderFooter))) - var(--WidthMenuCrab));
 }
 #MenuCrabR.MenuCrab.OnClickOption {
     right: calc(50% - var(--WidthMenuCrab) / 2 + var(--WidthMenuCrab));
