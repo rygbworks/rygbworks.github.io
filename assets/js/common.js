@@ -1,5 +1,25 @@
 // ホームページの核となるファイル
 
+// リロードループの原因調査用: リロードをまたいで履歴を記録する(sessionStorageはリロードしても消えない)
+const PageLoadTime = Date.now();
+const ReloadLogKey = "ReloadDebugLog";
+const MaxReloadLogEntries = 6;
+
+function GetReloadLog() {
+    try {
+        return JSON.parse(sessionStorage.getItem(ReloadLogKey)) || [];
+    }
+    catch {
+        return [];
+    }
+}
+
+function AppendReloadLog(Entry) {
+    const Log = GetReloadLog();
+    Log.push(Entry);
+    sessionStorage.setItem(ReloadLogKey, JSON.stringify(Log));
+}
+
 // body要素を取得
 const Body = document.querySelector("body");
 
@@ -38,7 +58,7 @@ function UpdateDebugOverlay() {
     const ContentsRect = document.querySelector("#Contents").getBoundingClientRect();
 
     TestElement.textContent = [
-        `ver.0.20`,
+        `ver.0.21`,
         `UA: ${navigator.userAgent}`,
         `innerHeight: ${window.innerHeight} / visualViewport: ${window.visualViewport ? window.visualViewport.height.toFixed(1) : "N/A"}`,
         `documentElement.clientHeight: ${document.documentElement.clientHeight}`,
@@ -47,6 +67,10 @@ function UpdateDebugOverlay() {
         `footer:   top=${FooterRect.top.toFixed(1)} bottom=${FooterRect.bottom.toFixed(1)} h=${FooterRect.height.toFixed(1)}`,
         `gap Header-Contents: ${(ContentsRect.top - HeaderRect.bottom).toFixed(1)}`,
         `gap Contents-Footer: ${(FooterRect.top - ContentsRect.bottom).toFixed(1)}`,
+        `--- ReloadLog(${GetReloadLog().length}件) ---`,
+        ...GetReloadLog().map((Entry, Index) =>
+            `[${Index}] ${Entry.elapsedMs}ms innerH=${Entry.innerHeight} W=${Entry.widthContents.toFixed(1)} H=${Entry.heightContents.toFixed(1)} AR=${Entry.aspectRatio.toFixed(3)} Mode=${Entry.modeWas}→${Entry.checkModeNow}`
+        ),
     ].join("\n");
 
 }
@@ -205,7 +229,7 @@ setTimeout(() => {
 
     }
 
-}, 1000);
+}, 3000);
 
 // コンテンツ画面領域の余計なクリックアクションを無効化
 Contents.addEventListener("contextmenu", (event) => {
@@ -222,8 +246,21 @@ function UpdateContentsMetrics() {
     AspectRatio = WidthContents / HeightContents;
 
     // Modeがまだ確定していない(安定待ちの)間は判定しない
-    if (Mode !== undefined && Mode !== CheckMode()) {
+    // 無限ループで履歴が流れてしまわないよう、一定回数記録したらそれ以上は何もしない(reloadもログ追記も止める)
+    if (Mode !== undefined && Mode !== CheckMode() && GetReloadLog().length < MaxReloadLogEntries) {
+
+        AppendReloadLog({
+            elapsedMs: Date.now() - PageLoadTime,
+            innerHeight: window.innerHeight,
+            widthContents: WidthContents,
+            heightContents: HeightContents,
+            aspectRatio: AspectRatio,
+            modeWas: Mode,
+            checkModeNow: CheckMode(),
+        });
+
         window.location.reload();
+
     }
 
 }
