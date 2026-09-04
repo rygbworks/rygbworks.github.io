@@ -67,6 +67,10 @@ function Move(TimeNow) {
 // ニワトリがジャンプする音を鳴らす
 function PlaySoundJumpChicken(SoundSourceJumpChicken) {
 
+    if (ManagerAudio.state !== "running") {
+        return;
+    }
+
     SoundJumpChicken = ManagerAudio.createBufferSource();
 
     SoundJumpChicken.buffer = SoundSourceJumpChicken;

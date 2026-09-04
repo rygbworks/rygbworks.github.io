@@ -12,6 +12,10 @@ const OptionsFlickCrabRotate = {
 // カニを弾き飛ばす音を鳴らす
 function PlaySoundFlickCrab(SoundSourceFlickCrab) {
 
+  if (ManagerAudio.state !== "running") {
+    return;
+  }
+
   SoundFlickCrab = ManagerAudio.createBufferSource();
 
   SoundFlickCrab.buffer = SoundSourceFlickCrab;

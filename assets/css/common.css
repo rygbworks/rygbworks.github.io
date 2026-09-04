@@ -22,9 +22,9 @@
     --SizeBrick: calc(10.5svh + 30px) 100%;
 }
 
-#test {
+#Debug {
     position: fixed;
-    top: 10svh; left: 30px;
+    top: 10svh; left: 10px;
     z-index: 100;
 }
 

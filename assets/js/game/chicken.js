@@ -77,6 +77,10 @@ function DisplayEffectFlickChicken(Difference_xChickenCrab, xHit, yHit) {
 // ニワトリがふっ飛ばされる効果音を鳴らす
 function PlaySoundFlickChicken(SoundSourceFlickChicken) {
 
+    if (ManagerAudio.state !== "running") {
+        return;
+    }
+
     SoundFlickChicken = ManagerAudio.createBufferSource();
 
     SoundFlickChicken.buffer = SoundSourceFlickChicken;
