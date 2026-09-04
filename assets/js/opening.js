@@ -58,6 +58,22 @@ function ForwardKeyEventToGame(event) {
 window.addEventListener("keydown", ForwardKeyEventToGame);
 window.addEventListener("keyup", ForwardKeyEventToGame);
 
+// 親ページ側の操作でも、iframe内のAudioContextの解禁を試みる(保険)
+// (iframeの外(ヘッダー・フッターなど)で発生したジェスチャーはiframe自身のdocumentには届かないため、
+//  manager-game.js側のリスナーだけでは解禁されないケースに備える。
+//  ManagerAudio自体はconst宣言のためcontentWindow経由では参照できないが、
+//  同じくmanager-game.jsが定義するTryResumeManagerAudio(関数宣言)はwindowのプロパティになるため、
+//  それをiframe側でそのまま呼び出す)
+function TryResumeGameAudio() {
+    if (CurrentIframe && CurrentIframe.contentWindow && CurrentIframe.contentWindow.TryResumeManagerAudio) {
+        CurrentIframe.contentWindow.TryResumeManagerAudio();
+    }
+}
+
+for (const EventType of ["pointerdown", "pointerup", "touchstart", "touchend", "mousedown", "mouseup", "click", "keydown"]) {
+    document.addEventListener(EventType, TryResumeGameAudio);
+}
+
 // マウス/トラックパッド操作時のみボタン・アイコンをホバー状態にする
 // (@media(hover:hover)は「そのデバイスがホバー可能か」という機種レベルの判定しかできず、
 //  Surfaceのようなタッチ+トラックパッド両対応デバイスでは常にtrueになってしまうため、
