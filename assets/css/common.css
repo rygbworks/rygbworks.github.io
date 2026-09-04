@@ -25,7 +25,6 @@
 #test {
     position: absolute;
     top: 10svh; left: 50px;
-    color: #000;
 }
 
 * {
@@ -48,6 +47,8 @@ noscript {
 
 body {
     background-color: #ccc;
+    /* color-schemeの影響でcurrentColor(box-shadowや枠線などの既定色)が変わらないよう、文字色を明示しておく */
+    color: #000;
     position: relative;
     width: 100dvw; height: 100dvh;
     text-align: center;
