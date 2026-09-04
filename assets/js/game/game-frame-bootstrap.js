@@ -8,6 +8,10 @@ const Footer = parent.document.querySelector("footer");
 // (iframeは親の#Contentsにぴったり重なるよう配置されるため、改めて実測し直す必要はない)
 const Contents = document.querySelector("#GameArea");
 
+// common.cssのbody{visibility:hidden}は親ページ(opening.js)側でしか解除されないため、
+// iframe自身のbodyはここで明示的に表示する
+document.body.style.visibility = "visible";
+
 const StyleContents = getComputedStyle(Contents);
 let WidthContents = Number.parseFloat(StyleContents.getPropertyValue("width"));
 let HeightContents = Number.parseFloat(StyleContents.getPropertyValue("height"));

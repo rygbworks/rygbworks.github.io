@@ -12,6 +12,14 @@
     height: calc(var(--MeasuredContentsHeight) + 0.3vw);
 }
 
+#GameArea {
+    /* ゲームiframe内の土台となる要素(親の#Contentsに相当) */
+    position: relative;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    container-type: size;
+}
+
 #ErrorAspectRatio {
     display: none;
 }
