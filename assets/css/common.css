@@ -101,6 +101,8 @@ button:hover {
 }
 
 button.ButtonSquare {
+    /* color-scheme:light は逆に強制ダーク変換の対象になるとの情報があるため、darkを指定してみる */
+    color-scheme: dark;
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
     box-shadow: 0 0.5svh 0.5svh;
