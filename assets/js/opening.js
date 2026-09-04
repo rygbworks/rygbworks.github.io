@@ -19,6 +19,7 @@ const ButtonHelp = document.querySelector("#ButtonHelp");
 //  重複登録されないよう、モードに関係なく1回だけ実行されるここに置く)
 ButtonHelp.addEventListener("click", () => {
     Footer.classList.toggle("OnClickHelp");
+    ButtonHelp.blur();
 });
 
 // ガイドの切り替え(タップorキーボード)

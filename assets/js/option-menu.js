@@ -23,6 +23,8 @@ ButtonOption.addEventListener("click", () => {
     Footer.classList.toggle("OnClickOption");
     ButtonHelp.classList.toggle("OnClickOption");
 
+    ButtonOption.blur();
+
 });
 
 // アイコンのクリックで別ページに移動
