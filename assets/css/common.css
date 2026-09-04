@@ -10,13 +10,9 @@
 
 :root {
     --HeightHeaderFooter: 10svh;
-    /* Androidの自動ダーク変換が「小さい正方形アイコン」を検知して反転させるのを避けるため、 */
-    /* レイアウト上のサイズはわざと大きい(160px)ままにし、実際の見た目はscaleで元のサイズ(7svh)に縮小して表示する */
-    --WidthButtonSquare: 160px;
-    --VisibleSizeButtonSquare: 7svh;
-    --ScaleButtonSquare: calc(var(--VisibleSizeButtonSquare) / var(--WidthButtonSquare));
+    --WidthButtonSquare: 7svh;
     --MarginEdgeButton: 10px;
-    --MaxWidthContentsFooter: calc(100svw - var(--VisibleSizeButtonSquare) * 2 - var(--MarginEdgeButton) * 2);
+    --MaxWidthContentsFooter: calc(100svw - var(--WidthButtonSquare) * 2 - var(--MarginEdgeButton) * 2);
     --DurationMenuToggle: 500ms;
     --OffsetMenuCrabNear: 70%;
     --OffsetMenuCrabFar: 100%;
@@ -104,24 +100,19 @@ button:hover {
 }
 
 button.ButtonSquare {
+    /* Androidの強制的な色調整(反転)からこのボタンを除外する */
+    forced-color-adjust: none;
     width: var(--WidthButtonSquare); aspect-ratio: 1 / 1;
     border-radius: 26%;
-    /* scaleで縮小される分、影が元の見た目(0.5svh相当)になるよう逆算して大きくしておく */
-    box-shadow: 0 calc(0.5svh / var(--ScaleButtonSquare)) calc(0.5svh / var(--ScaleButtonSquare));
+    box-shadow: 0 0.5svh 0.5svh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    scale: var(--ScaleButtonSquare);
-}
-button.ButtonSquare:hover {
-    scale: calc(var(--ScaleButtonSquare) * 1.1);
 }
 
 #ButtonOption {
     position: absolute;
     right: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
-    /* scaleで縮小しても右端の位置が変わらないよう、右端を基準に縮小する */
-    transform-origin: 100% 50%;
     background-image: url(/assets/image/button/button-option.webp), url(/assets/image/button/button-option-push.webp);
     z-index: 91;
 }
@@ -133,8 +124,6 @@ button.ButtonSquare:hover {
     display: none;
     position: absolute;
     left: var(--MarginEdgeButton); top: calc(50% - var(--WidthButtonSquare) / 2);
-    /* scaleで縮小しても左端の位置が変わらないよう、左端を基準に縮小する */
-    transform-origin: 0% 50%;
     background-image: url(/assets/image/button/button-help.webp), url(/assets/image/button/button-help-push.webp);
 }
 #ButtonHelp:active {
